@@ -118,7 +118,7 @@ const Register: React.FC = () => {
     try {
       await axios.post('http://localhost:5000/api/auth/register', formData);
       toast.success('Registration successful!');
-      navigate('/register-success');
+      navigate('/register-success', { state: { email: formData.email } });
     } catch (err: any) {
       toast.error(err.response?.data?.message || 'Registration failed. Try again.');
     } finally {

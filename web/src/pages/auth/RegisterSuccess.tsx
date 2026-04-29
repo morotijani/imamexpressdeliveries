@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 import AppLayout from '../../components/AppLayout';
 
@@ -18,6 +18,8 @@ const mapOptions = {
 
 const RegisterSuccess: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const registeredEmail = location.state?.email || 'your email';
   const [userLocation, setUserLocation] = useState<google.maps.LatLngLiteral | null>(null);
   const [locationName, setLocationName] = useState<string>('Detecting location...');
 
@@ -75,7 +77,7 @@ const RegisterSuccess: React.FC = () => {
       <h2 className="text-gradient" style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>Congratulations!</h2>
       <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>Your account has been successfully created.</p>
       <p className="text-muted" style={{ marginBottom: '2.5rem', maxWidth: '320px' }}>
-        We've sent a verification link to your email address. Please check your inbox and verify your email to activate your account.
+        We've sent a verification link to <strong style={{ color: 'var(--primary)' }}>{registeredEmail}</strong>. Please check your inbox and verify your email to activate your account.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '300px' }}>
@@ -89,7 +91,7 @@ const RegisterSuccess: React.FC = () => {
         <button 
           className="btn btn-secondary" 
           style={{ padding: '1rem', borderRadius: '2rem', background: 'transparent' }}
-          onClick={() => window.location.reload()}
+          onClick={() => navigate('/resend-verification')}
         >
           Resend Email
         </button>

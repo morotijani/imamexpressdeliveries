@@ -5,6 +5,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import RegisterSuccess from './pages/auth/RegisterSuccess';
+import VerifyEmail from './pages/auth/VerifyEmail';
+import ResendVerification from './pages/auth/ResendVerification';
 import CreateOrder from './pages/customer/CreateOrder';
 import OrderHistory from './pages/customer/OrderHistory';
 import Dashboard from './pages/admin/Dashboard';
@@ -50,6 +52,8 @@ const App: React.FC = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/register-success" element={<RegisterSuccess />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/resend-verification" element={<ResendVerification />} />
       
       {/* Customer Routes */}
       <Route path="/customer/*" element={

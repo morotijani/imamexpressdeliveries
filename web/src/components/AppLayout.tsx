@@ -12,7 +12,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ leftContent, rightContent }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isAuthPage = ['/login', '/register', '/register-success'].includes(location.pathname);
+  const isAuthPage = ['/login', '/register', '/register-success', '/verify-email', '/resend-verification'].includes(location.pathname);
 
   return (
     <div className="app-shell-wrapper">

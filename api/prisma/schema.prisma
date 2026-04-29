@@ -32,6 +32,8 @@ model User {
   phone     String?
   homeAddress String?
   workAddress String?
+  emailVerified Boolean @default(false)
+  verificationToken String?
   profileImage String?
   role      Role     @default(CUSTOMER)
   createdAt DateTime @default(now())
