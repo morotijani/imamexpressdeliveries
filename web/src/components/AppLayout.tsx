@@ -1,5 +1,4 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import BottomNav from './BottomNav';
 
@@ -11,8 +10,9 @@ interface AppLayoutProps {
 const AppLayout: React.FC<AppLayoutProps> = ({ leftContent, rightContent }) => {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const isAuthPage = ['/login', '/register'].includes(window.location.pathname);
+  const isAuthPage = ['/login', '/register', '/register-success'].includes(location.pathname);
 
   return (
     <div className="app-shell-wrapper">
@@ -22,7 +22,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ leftContent, rightContent }) => {
           <div style={{ background: 'var(--primary)', color: 'white', padding: '0.6rem', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', boxShadow: '0 4px 12px rgba(160, 32, 240, 0.3)' }}>
             <span className="material-symbols-outlined" style={{ fontSize: '1.75rem' }}>local_shipping</span>
           </div>
-          <h1 style={{ fontSize: '1.6rem', fontWeight: 900, color: 'var(--bg-darker)', margin: 0, letterSpacing: '-0.03em' }}>
+          <h1 className="top-logo-text">
             Imam Express
           </h1>
         </div>
@@ -54,7 +54,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ leftContent, rightContent }) => {
           <div className="app-sidebar-content">
             {leftContent}
             
-            {!isAuthenticated && !['/login', '/register'].includes(window.location.pathname) && (
+            {!isAuthenticated && !isAuthPage && (
               <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <button 
                   className="btn btn-primary" 

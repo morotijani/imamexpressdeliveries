@@ -181,7 +181,15 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
+  padding: 1.25rem 0;
+}
+
+.top-logo-text {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--bg-darker);
+  margin: 0;
+  letter-spacing: -0.03em;
 }
 
 .top-header-left {
@@ -342,6 +350,27 @@ a {
   }
   .bottom-nav {
     border-radius: 1.5rem 1.5rem 0 0;
+  }
+  
+  .top-header {
+    padding: 1rem 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .top-logo-text {
+    font-size: 1.25rem;
+  }
+
+  .top-header-left {
+    gap: 0.75rem;
+  }
+
+  .top-header-left > div {
+    padding: 0.5rem !important;
+  }
+
+  .top-header-left span {
+    font-size: 1.5rem !important;
   }
   
   /* Auth Page Specialized Mobile Layout */
