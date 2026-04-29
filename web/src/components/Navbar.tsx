@@ -21,9 +21,19 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-6">
           {isAuthenticated && user ? (
             <>
-              {user.role === 'ADMIN' && <Link to="/admin">Dashboard</Link>}
+              {user.role === 'ADMIN' && (
+                <>
+                  <Link to="/admin">Dashboard</Link>
+                  <Link to="/admin/orders">Manage Orders</Link>
+                </>
+              )}
               {user.role === 'RIDER' && <Link to="/rider">My Deliveries</Link>}
-              {user.role === 'CUSTOMER' && <Link to="/customer">Portal</Link>}
+              {user.role === 'CUSTOMER' && (
+                <>
+                  <Link to="/customer">Create Order</Link>
+                  <Link to="/customer/history">Order History</Link>
+                </>
+              )}
               
               <div className="flex items-center gap-4 ml-4">
                 <span className="text-muted">Hello, {user.name}</span>

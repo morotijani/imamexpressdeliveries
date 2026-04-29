@@ -54,7 +54,7 @@ const Dashboard: React.FC = () => {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
         <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', textAlign: 'center' }}>
           <h3 className="text-muted" style={{ fontSize: '1rem', fontWeight: 500 }}>Total Revenue</h3>
-          <p style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--secondary)' }}>${metrics?.totalRevenue.toFixed(2)}</p>
+          <p style={{ fontSize: '2.5rem', fontWeight: 700, color: 'var(--secondary)' }}>GH₵{metrics?.totalRevenue.toFixed(2)}</p>
         </div>
         
         <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', textAlign: 'center', animationDelay: '0.1s' }}>
@@ -88,7 +88,7 @@ const Dashboard: React.FC = () => {
                 <td style={{ padding: '1rem 1.5rem' }}>
                   <span className={`badge badge-${order.status.toLowerCase()}`}>{order.status}</span>
                 </td>
-                <td style={{ padding: '1rem 1.5rem', fontWeight: 600 }}>${order.price.toFixed(2)}</td>
+                <td style={{ padding: '1rem 1.5rem', fontWeight: 600 }}>GH₵{order.price.toFixed(2)}</td>
               </tr>
             )) : (
               <tr>

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createOrder, getCustomerOrders, getOrderById } from '../controllers/orderController';
+import { createOrder, getCustomerOrders, getOrderById, estimatePrice } from '../controllers/orderController';
 import { authenticateJWT, requireRole } from '../middlewares/auth';
 
 const router = Router();
@@ -8,6 +8,7 @@ const router = Router();
 router.use(authenticateJWT);
 
 // Customer routes
+router.post('/estimate', requireRole(['CUSTOMER']), estimatePrice);
 router.post('/', requireRole(['CUSTOMER']), createOrder);
 router.get('/my-orders', requireRole(['CUSTOMER']), getCustomerOrders);
 
