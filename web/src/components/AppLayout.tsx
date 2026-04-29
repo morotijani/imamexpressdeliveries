@@ -14,14 +14,32 @@ const AppLayout: React.FC<AppLayoutProps> = ({ leftContent, rightContent }) => {
 
   return (
     <div className="app-shell-wrapper">
+      {/* Top Navigation Bar */}
+      <header className="top-header">
+        <div className="top-header-left" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <div style={{ background: 'var(--primary)', color: 'white', padding: '0.5rem', borderRadius: '0.5rem', display: 'flex', alignItems: 'center' }}>
+            <span className="material-symbols-outlined">local_shipping</span>
+          </div>
+          <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#fff', margin: 0, letterSpacing: '-0.025em' }}>
+            Imam Express
+          </h1>
+        </div>
+        
+        <div className="top-header-right">
+          <button className="theme-toggle">
+            <span className="material-symbols-outlined">dark_mode</span>
+          </button>
+          
+          {isAuthenticated && (
+            <div className="header-profile-pic" onClick={() => navigate('/customer/profile')}>
+              {user?.name?.charAt(0).toUpperCase() || 'U'}
+            </div>
+          )}
+        </div>
+      </header>
+
       <div className="app-shell">
         <div className="app-sidebar">
-          {/* Logo Header replacing Navbar */}
-          <div style={{ padding: '2rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 700, fontFamily: 'cursive', color: '#fff', margin: 0 }}>
-              Imam Express
-            </h1>
-          </div>
           
           <div className="app-sidebar-content">
             {leftContent}

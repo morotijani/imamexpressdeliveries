@@ -14,7 +14,7 @@ const mapContainerStyle = {
 const defaultCenter = { lat: 5.6037, lng: -0.1870 }; // Accra default
 
 const mapOptions = {
-  styles: [ { elementType: "geometry", stylers: [{ color: "#f5f5f5" }] }, { elementType: "labels.icon", stylers: [{ visibility: "off" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] }, { featureType: "administrative.land_parcel", elementType: "labels.text.fill", stylers: [{ color: "#bdbdbd" }] }, { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }, { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] }, { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }, { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] }, { featureType: "road.arterial", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] }, { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#dadada" }] }, { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#616161" }] }, { featureType: "road.local", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }, { featureType: "transit.line", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, { featureType: "transit.station", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9c9c9" }] }, { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] } ],
+  styles: [{ elementType: "geometry", stylers: [{ color: "#f5f5f5" }] }, { elementType: "labels.icon", stylers: [{ visibility: "off" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] }, { featureType: "administrative.land_parcel", elementType: "labels.text.fill", stylers: [{ color: "#bdbdbd" }] }, { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }, { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] }, { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, { featureType: "poi.park", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }, { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] }, { featureType: "road.arterial", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] }, { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#dadada" }] }, { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#616161" }] }, { featureType: "road.local", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }, { featureType: "transit.line", elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, { featureType: "transit.station", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#c9c9c9" }] }, { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }],
   disableDefaultUI: true,
   zoomControl: true,
 };
@@ -39,9 +39,10 @@ const CreateOrder: React.FC = () => {
     dropoffLocation: '',
     receiverName: '',
     receiverContact: '',
-    packageDescription: 'documents'
+    packageDescription: '',
+    packageType: 'documents'
   });
-  
+
   const [priceEstimate, setPriceEstimate] = useState<number | null>(null);
   const [distanceEstimate, setDistanceEstimate] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ const CreateOrder: React.FC = () => {
   };
 
   const handlePackageSelect = (id: string) => {
-    setFormData({ ...formData, packageDescription: id });
+    setFormData({ ...formData, packageType: id });
   };
 
   const onPickupPlaceChanged = () => {
@@ -130,12 +131,18 @@ const CreateOrder: React.FC = () => {
     setSuccess(false);
 
     try {
-      await axios.post('http://localhost:5000/api/orders', formData, {
+      // Combine package type and description for the backend
+      const payload = {
+        ...formData,
+        packageDescription: `${formData.packageType.toUpperCase()}: ${formData.packageDescription}`
+      };
+
+      await axios.post('http://localhost:5000/api/orders', payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSuccess(true);
       setFormData({
-        pickupLocation: '', dropoffLocation: '', receiverName: '', receiverContact: '', packageDescription: 'documents'
+        pickupLocation: '', dropoffLocation: '', receiverName: '', receiverContact: '', packageDescription: '', packageType: 'documents'
       });
       setPriceEstimate(null);
       setDistanceEstimate(null);
@@ -151,8 +158,8 @@ const CreateOrder: React.FC = () => {
 
   const leftContent = (
     <div>
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', color: '#fff' }}>Delivery Details</h2>
-      
+      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', marginTop: '5px', color: '#fff' }}>Delivery Details</h2>
+
       {loadError && (
         <div style={{ background: 'rgba(245, 158, 11, 0.2)', color: '#FCD34D', padding: '1rem', borderRadius: '0.375rem', marginBottom: '1.5rem' }}>
           Warning: Google Maps failed to load. Auto-complete will be disabled.
@@ -178,7 +185,7 @@ const CreateOrder: React.FC = () => {
           <div style={{ position: 'absolute', left: '-4px', bottom: '30px', width: '10px', height: '10px', background: 'var(--primary)', borderRadius: '50%', boxShadow: '0 0 10px var(--primary)' }}></div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Sender's Address</label>
+            <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Pick up Location</label>
             {isLoaded ? (
               <Autocomplete onLoad={(autoC) => pickupAutocompleteRef.current = autoC} onPlaceChanged={onPickupPlaceChanged}>
                 <input type="text" className="input-field" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)', borderRadius: 0, paddingLeft: 0, paddingRight: 0 }} name="pickupLocation" placeholder="Search pickup address" value={formData.pickupLocation} onChange={handleChange} required />
@@ -189,7 +196,7 @@ const CreateOrder: React.FC = () => {
           </div>
 
           <div>
-            <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Recipient's Address</label>
+            <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Drop off Location</label>
             {isLoaded ? (
               <Autocomplete onLoad={(autoC) => dropoffAutocompleteRef.current = autoC} onPlaceChanged={onDropoffPlaceChanged}>
                 <input type="text" className="input-field" style={{ background: 'transparent', border: 'none', borderBottom: '1px solid rgba(255,255,255,0.1)', borderRadius: 0, paddingLeft: 0, paddingRight: 0 }} name="dropoffLocation" placeholder="Search delivery address" value={formData.dropoffLocation} onChange={handleChange} required />
@@ -211,21 +218,34 @@ const CreateOrder: React.FC = () => {
           </div>
         </div>
 
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>Package Description</label>
+          <textarea
+            className="input-field"
+            name="packageDescription"
+            placeholder="E.g. Fragile glass box, 2kg"
+            value={formData.packageDescription}
+            onChange={handleChange}
+            style={{ height: '80px', resize: 'none' }}
+            required
+          ></textarea>
+        </div>
+
         <div style={{ marginBottom: '2.5rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <label className="input-label" style={{ fontSize: '0.875rem', marginBottom: 0, color: '#fff' }}>Choose Package Type</label>
           </div>
           <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '1rem', scrollbarWidth: 'none' }}>
             {packageTypes.map(pkg => (
-              <div 
-                key={pkg.id} 
+              <div
+                key={pkg.id}
                 onClick={() => handlePackageSelect(pkg.id)}
-                style={{ 
-                  flex: '0 0 auto', 
-                  width: '100px', 
-                  height: '110px', 
-                  background: formData.packageDescription === pkg.id ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)', 
-                  border: formData.packageDescription === pkg.id ? '1px dashed #fff' : '1px solid rgba(255,255,255,0.05)',
+                style={{
+                  flex: '0 0 auto',
+                  width: '100px',
+                  height: '110px',
+                  background: formData.packageType === pkg.id ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
+                  border: formData.packageType === pkg.id ? '1px dashed #fff' : '1px solid rgba(255,255,255,0.05)',
                   borderRadius: '1rem',
                   display: 'flex',
                   flexDirection: 'column',
@@ -236,7 +256,7 @@ const CreateOrder: React.FC = () => {
                 }}
               >
                 <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{pkg.icon}</div>
-                <div style={{ fontSize: '0.75rem', fontWeight: 500, color: formData.packageDescription === pkg.id ? '#fff' : 'var(--text-muted)' }}>{pkg.name}</div>
+                <div style={{ fontSize: '0.75rem', fontWeight: 500, color: formData.packageType === pkg.id ? '#fff' : 'var(--text-muted)' }}>{pkg.name}</div>
               </div>
             ))}
           </div>
@@ -287,14 +307,14 @@ const CreateOrder: React.FC = () => {
 
       {/* Floating Estimation Badge */}
       {priceEstimate !== null && distanceEstimate !== null && (
-        <div style={{ 
-          position: 'absolute', 
-          top: '2rem', 
-          left: '50%', 
-          transform: 'translateX(-50%)', 
-          background: '#fff', 
-          padding: '1rem 2rem', 
-          borderRadius: '2rem', 
+        <div style={{
+          position: 'absolute',
+          top: '2rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#fff',
+          padding: '1rem 2rem',
+          borderRadius: '2rem',
           boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
           display: 'flex',
           gap: '2rem',

@@ -37,8 +37,8 @@ const OrderHistory: React.FC = () => {
 
   const leftContent = (
     <div>
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', color: '#fff' }}>Delivery History</h2>
-      
+      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', marginTop: '0.8rem', color: '#fff' }}>Delivery History</h2>
+
       {loading ? (
         <div className="text-center text-muted" style={{ padding: '2rem' }}>Loading...</div>
       ) : orders.length === 0 ? (
@@ -53,7 +53,7 @@ const OrderHistory: React.FC = () => {
                 <span className={`badge badge-${order.status.toLowerCase()}`}>{order.status}</span>
                 <span style={{ fontWeight: 600, color: 'var(--primary-light)' }}>GH₵{order.price.toFixed(2)}</span>
               </div>
-              
+
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
                 <div>
                   <p className="text-muted" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>From</p>

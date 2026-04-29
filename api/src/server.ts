@@ -5,6 +5,7 @@ import authRoutes from './routes/authRoutes';
 import orderRoutes from './routes/orderRoutes';
 import riderRoutes from './routes/riderRoutes';
 import adminRoutes from './routes/adminRoutes';
+import userRoutes from './routes/userRoutes';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/rider', riderRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
