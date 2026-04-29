@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar: React.FC = () => {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -12,47 +12,42 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="container flex items-center justify-between">
-        <Link to="/" className="text-gradient" style={{ fontSize: '1.5rem', fontWeight: 700 }}>
+    <div style={{ padding: '2rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+        <Link to="/" style={{ fontSize: '1.75rem', fontWeight: 700, fontFamily: 'cursive', color: '#fff', textDecoration: 'none' }}>
           Imam Express
         </Link>
+        {isAuthenticated && (
+          <button onClick={handleLogout} style={{ background: 'transparent', border: 'none', color: 'var(--danger)', cursor: 'pointer', fontSize: '0.875rem', fontWeight: 600 }}>
+            Logout
+          </button>
+        )}
+      </div>
 
-        <div className="flex items-center gap-6">
-          {isAuthenticated && user ? (
+      {isAuthenticated && user && (
+        <nav style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          {user.role === 'ADMIN' && (
             <>
-              {user.role === 'ADMIN' && (
-                <>
-                  <Link to="/admin">Dashboard</Link>
-                  <Link to="/admin/orders">Manage Orders</Link>
-                </>
-              )}
-              {user.role === 'RIDER' && <Link to="/rider">My Deliveries</Link>}
-              {user.role === 'CUSTOMER' && (
-                <>
-                  <Link to="/customer">Create Order</Link>
-                  <Link to="/customer/history">Order History</Link>
-                </>
-              )}
-              
-              <div className="flex items-center gap-4 ml-4">
-                <span className="text-muted">Hello, {user.name}</span>
-                <button onClick={handleLogout} className="btn btn-secondary" style={{ padding: '0.4rem 1rem' }}>
-                  Logout
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/register" className="btn btn-primary" style={{ padding: '0.4rem 1rem' }}>
-                Register
-              </Link>
+              <Link to="/admin" className="nav-link">Dashboard</Link>
+              <Link to="/admin/orders" className="nav-link">Manage Orders</Link>
             </>
           )}
-        </div>
-      </div>
-    </nav>
+          {user.role === 'RIDER' && <Link to="/rider" className="nav-link">My Deliveries</Link>}
+          {user.role === 'CUSTOMER' && (
+            <>
+              <Link to="/customer" className="nav-link">Create Gift</Link>
+              <Link to="/customer/history" className="nav-link">History</Link>
+            </>
+          )}
+        </nav>
+      )}
+      {!isAuthenticated && (
+        <nav style={{ display: 'flex', gap: '1rem' }}>
+          <Link to="/login" className="nav-link">Login</Link>
+          <Link to="/register" className="nav-link">Register</Link>
+        </nav>
+      )}
+    </div>
   );
 };
 
