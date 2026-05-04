@@ -77,7 +77,14 @@ const Login: React.FC = () => {
       else navigate('/customer');
       
     } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Failed to login. Please check your credentials.');
+      const errorMessage = err.response?.data?.message || 'Failed to login. Please check your credentials.';
+      toast.error(errorMessage);
+      
+      if (err.response?.status === 403 && errorMessage.includes('verify your email')) {
+        setTimeout(() => {
+          navigate('/resend-verification', { state: { email } });
+        }, 1500);
+      }
     } finally {
       setLoading(false);
     }

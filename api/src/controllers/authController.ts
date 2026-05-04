@@ -16,6 +16,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
     const user = await prisma.user.create({
       data: {
@@ -27,6 +28,7 @@ export const register = async (req: Request, res: Response): Promise<any> => {
         workAddress,
         role: role || 'CUSTOMER',
         verificationToken,
+        verificationTokenExpiresAt,
       },
     });
 
@@ -81,7 +83,11 @@ export const verifyEmail = async (req: Request, res: Response): Promise<any> => 
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Invalid or expired verification token' });
+      return res.status(404).json({ message: 'Invalid verification token' });
+    }
+
+    if (user.verificationTokenExpiresAt && user.verificationTokenExpiresAt < new Date()) {
+      return res.status(400).json({ message: 'Verification token has expired' });
     }
 
     await prisma.user.update({
@@ -89,6 +95,7 @@ export const verifyEmail = async (req: Request, res: Response): Promise<any> => 
       data: {
         emailVerified: true,
         verificationToken: null,
+        verificationTokenExpiresAt: null,
       },
     });
 
@@ -117,10 +124,11 @@ export const resendVerification = async (req: Request, res: Response): Promise<a
     }
 
     const verificationToken = crypto.randomBytes(32).toString('hex');
+    const verificationTokenExpiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
     await prisma.user.update({
       where: { id: user.id },
-      data: { verificationToken },
+      data: { verificationToken, verificationTokenExpiresAt },
     });
 
     await sendVerificationEmail(email, verificationToken);

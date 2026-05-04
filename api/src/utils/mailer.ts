@@ -23,6 +23,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
         <div style="text-align: center; margin: 30px 0;">
           <a href="${verificationLink}" style="background-color: #A020F0; color: white; padding: 12px 24px; text-decoration: none; border-radius: 50px; font-weight: bold; display: inline-block;">Verify Email Address</a>
         </div>
+        <p style="font-size: 0.9rem; color: #666; text-align: center;"><strong>Note:</strong> This link will expire in 15 minutes.</p>
         <p style="font-size: 0.9rem; color: #666;">If you didn't create an account with Imam Express, you can safely ignore this email.</p>
         <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
         <p style="font-size: 0.8rem; color: #999; text-align: center;">&copy; 2026 Imam Express Deliveries. All rights reserved.</p>

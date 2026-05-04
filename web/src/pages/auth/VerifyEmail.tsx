@@ -20,7 +20,7 @@ const mapOptions = {
 
 const VerifyEmail: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'expired'>('loading');
   const [userLocation, setUserLocation] = useState<google.maps.LatLngLiteral | null>(null);
   const [locationName, setLocationName] = useState<string>('Detecting location...');
   const navigate = useNavigate();
@@ -72,9 +72,13 @@ const VerifyEmail: React.FC = () => {
         await axios.get(`http://localhost:5000/api/auth/verify-email?token=${token}`);
         setStatus('success');
         toast.success('Email verified successfully!');
-      } catch (error) {
+      } catch (error: any) {
         console.error('Verification error:', error);
-        setStatus('error');
+        if (error.response?.status === 400 && error.response?.data?.message?.includes('expired')) {
+          setStatus('expired');
+        } else {
+          setStatus('error');
+        }
       }
     };
 
@@ -137,7 +141,7 @@ const VerifyEmail: React.FC = () => {
           </div>
           <h2 className="text-gradient" style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>Verification Failed</h2>
           <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '2.5rem' }}>
-            The verification link is invalid or has expired. Please try registering again or contact support.
+            The verification link is invalid or already used. Please try registering again or contact support.
           </p>
           <button 
             className="btn btn-primary" 
@@ -145,6 +149,35 @@ const VerifyEmail: React.FC = () => {
             onClick={() => navigate('/register')}
           >
             Back to Registration
+          </button>
+        </div>
+      )}
+
+      {status === 'expired' && (
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ 
+            width: '100px', 
+            height: '100px', 
+            background: 'rgba(245, 158, 11, 0.1)', 
+            borderRadius: '50%', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            marginBottom: '2rem',
+            border: '1px solid #f59e0b'
+          }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '4rem', color: '#f59e0b' }}>history</span>
+          </div>
+          <h2 className="text-gradient" style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>Link Expired</h2>
+          <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '2.5rem' }}>
+            This verification link has expired because it is older than 15 minutes. Please request a new link.
+          </p>
+          <button 
+            className="btn btn-primary" 
+            style={{ width: '100%', maxWidth: '300px', padding: '1rem', borderRadius: '2rem' }}
+            onClick={() => navigate('/resend-verification')}
+          >
+            Resend Verification Link
           </button>
         </div>
       )}

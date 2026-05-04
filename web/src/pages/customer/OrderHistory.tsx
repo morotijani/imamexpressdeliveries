@@ -10,9 +10,15 @@ interface Order {
   pickupLocation: string;
   dropoffLocation: string;
   receiverName: string;
+  receiverContact: string;
+  packageDescription?: string;
   status: string;
   price: number;
   createdAt: string;
+  rider?: {
+    name: string;
+    phone: string;
+  } | null;
 }
 
 const mapContainerStyle = {
@@ -132,6 +138,54 @@ const OrderHistory: React.FC = () => {
                   {new Date(order.createdAt).toLocaleDateString()}
                 </span>
               </div>
+
+              {selectedOrder?.id === order.id && (
+                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #3d1c36', animation: 'fade-in-top 0.3s ease' }}>
+                  <div style={{ marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Package Description</p>
+                    <p style={{ fontSize: '0.85rem', color: '#fff', lineHeight: 1.5 }}>{order.packageDescription || 'No description provided.'}</p>
+                  </div>
+                  
+                  <div style={{ marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Receiver Contact</p>
+                    <p style={{ fontSize: '0.85rem', color: '#fff' }}>{order.receiverContact}</p>
+                  </div>
+
+                  <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.75rem', borderRadius: '0.5rem', marginBottom: '1rem' }}>
+                    <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Delivery Assignment</p>
+                    {order.rider ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                        <p style={{ fontSize: '0.85rem', color: '#fff' }}><strong>{order.rider.name}</strong> has been assigned to this delivery.</p>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>call</span> 
+                          <a href={`tel:${order.rider.phone}`} style={{ color: 'inherit', textDecoration: 'none' }}>{order.rider.phone}</a>
+                        </p>
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Waiting for a delivery rider to accept the order.</p>
+                    )}
+                  </div>
+                  
+                  <div>
+                    <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Current Status</p>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#fff' }}>
+                      <span className="material-symbols-outlined" style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>
+                        {order.status === 'PENDING' ? 'schedule' : 
+                         order.status === 'ASSIGNED' ? 'directions_bike' : 
+                         order.status === 'PICKED_UP' ? 'local_shipping' : 
+                         order.status === 'DELIVERED' ? 'check_circle' : 'cancel'}
+                      </span>
+                      <span>
+                        {order.status === 'PENDING' && 'Order is placed and pending rider assignment.'}
+                        {order.status === 'ASSIGNED' && 'Rider is on the way to pick up the package.'}
+                        {order.status === 'PICKED_UP' && 'Package has been picked up and is in transit.'}
+                        {order.status === 'DELIVERED' && 'Package has been successfully delivered!'}
+                        {order.status === 'CANCELLED' && 'This order was cancelled.'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

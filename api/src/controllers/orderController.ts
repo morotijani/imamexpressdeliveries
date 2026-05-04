@@ -82,6 +82,11 @@ export const getCustomerOrders = async (req: AuthRequest, res: Response): Promis
     const customerId = req.user.userId;
     const orders = await prisma.order.findMany({
       where: { customerId },
+      include: {
+        rider: {
+          select: { name: true, phone: true }
+        }
+      },
       orderBy: { createdAt: 'desc' }
     });
 
