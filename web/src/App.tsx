@@ -16,6 +16,7 @@ import Profile from './pages/customer/Profile';
 
 import AppLayout from './components/AppLayout';
 import TopNavbar from './components/TopNavbar';
+import AdminLayout from './components/admin/AdminLayout';
 
 const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <>
@@ -76,16 +77,14 @@ const App: React.FC = () => {
       } />
 
       {/* Admin Routes */}
-      <Route path="/admin/*" element={
+      <Route path="/admin" element={
         <ProtectedRoute allowedRoles={['ADMIN']}>
-          <DefaultLayout>
-            <Routes>
-              <Route path="" element={<Dashboard />} />
-              <Route path="orders" element={<OrderManagement />} />
-            </Routes>
-          </DefaultLayout>
+          <AdminLayout />
         </ProtectedRoute>
-      } />
+      }>
+        <Route index element={<Dashboard />} />
+        <Route path="orders" element={<OrderManagement />} />
+      </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
