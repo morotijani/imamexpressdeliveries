@@ -58,6 +58,7 @@ const AdminLayout: React.FC = () => {
           {/* Conceptual Links for future features */}
           <NavItem to="/admin/analytics" icon="analytics" label="Analytics" open={sidebarOpen} />
           <NavItem to="/admin/settings" icon="settings" label="Settings" open={sidebarOpen} />
+          <NavItem to="/admin/help" icon="help" label="Help & Docs" open={sidebarOpen} />
         </nav>
 
         {/* User Area */}
