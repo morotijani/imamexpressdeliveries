@@ -14,6 +14,7 @@ import OrderManagement from './pages/admin/OrderManagement';
 import FleetMonitoring from './pages/admin/FleetMonitoring';
 import Customers from './pages/admin/Customers';
 import RidersManagement from './pages/admin/RidersManagement';
+import Analytics from './pages/admin/Analytics';
 import Help from './pages/admin/Help';
 import AssignedDeliveries from './pages/rider/AssignedDeliveries';
 import Profile from './pages/customer/Profile';
@@ -91,6 +92,7 @@ const App: React.FC = () => {
         <Route path="fleet" element={<FleetMonitoring />} />
         <Route path="customers" element={<Customers />} />
         <Route path="riders" element={<RidersManagement />} />
+        <Route path="analytics" element={<Analytics />} />
         <Route path="help" element={<Help />} />
       </Route>
 

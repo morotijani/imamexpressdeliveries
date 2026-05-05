@@ -11,6 +11,7 @@ const Help: React.FC = () => {
   const navItems = [
     { id: 'overview', label: 'Dashboard Overview', icon: 'dashboard' },
     { id: 'orders', label: 'Order Management', icon: 'view_list' },
+    { id: 'analytics', label: 'Deep Analytics', icon: 'analytics' },
     { id: 'colors', label: 'UI Color Guide', icon: 'palette' },
     { id: 'fleet', label: 'Fleet & Riders', icon: 'two_wheeler' },
     { id: 'customers', label: 'Customer Accounts', icon: 'group' },
@@ -119,6 +120,23 @@ const Help: React.FC = () => {
           <p style={{ color: '#ccc', lineHeight: '1.6', fontSize: '0.9rem' }}>
             To dispatch an order, locate a <code>PENDING</code> order in the grid. Click the three vertical dots (Quick Action Menu) on the far right of the row and select "Assign Rider", or simply click anywhere on the row to open the side panel. In the side panel, scroll down to the "Rider Assignment" box, select an available rider from the dropdown, and click "Assign".
           </p>
+        </section>
+
+        {/* Section 2.5: Analytics */}
+        <section id="analytics" style={{ marginBottom: '4rem', paddingTop: '1rem' }}>
+          <h2 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>analytics</span>
+            Deep Analytics
+          </h2>
+          <p style={{ color: '#ccc', lineHeight: '1.6', marginBottom: '1.5rem' }}>
+            The Analytics page aggregates historical data to provide actionable business intelligence.
+          </p>
+          <ul style={{ color: '#ccc', lineHeight: '1.6', paddingLeft: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <li><strong>Order Success Rate (Pie Chart):</strong> Helps you understand the ratio of successfully delivered packages versus cancellations.</li>
+            <li><strong>Top Riders Leaderboard (Bar Chart):</strong> Automatically ranks your delivery personnel based on the volume of successful drop-offs, useful for performance reviews.</li>
+            <li><strong>Historical Revenue (Area Chart):</strong> Tracks revenue growth over the past 14 days, providing a wider perspective than the dashboard's 7-day view.</li>
+            <li><strong>Hottest Delivery Zones:</strong> Automatically parses drop-off addresses to calculate your most frequent operational neighborhoods.</li>
+          </ul>
         </section>
 
         {/* Section 3: Colors */}

@@ -55,8 +55,9 @@ const AdminLayout: React.FC = () => {
           <NavItem to="/admin/fleet" icon="explore" label="Fleet Monitoring" open={sidebarOpen} />
           <NavItem to="/admin/riders" icon="sports_motorsports" label="Riders Management" open={sidebarOpen} />
           <NavItem to="/admin/customers" icon="group" label="Customers" open={sidebarOpen} />
-          {/* Conceptual Links for future features */}
           <NavItem to="/admin/analytics" icon="analytics" label="Analytics" open={sidebarOpen} />
+          
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', margin: '0.5rem 1rem' }}></div>
           <NavItem to="/admin/settings" icon="settings" label="Settings" open={sidebarOpen} />
           <NavItem to="/admin/help" icon="help" label="Help & Docs" open={sidebarOpen} />
         </nav>
