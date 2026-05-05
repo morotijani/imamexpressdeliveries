@@ -10,6 +10,7 @@ import ResendVerification from './pages/auth/ResendVerification';
 import CreateOrder from './pages/customer/CreateOrder';
 import OrderHistory from './pages/customer/OrderHistory';
 import Dashboard from './pages/admin/Dashboard';
+import AdminProfile from './pages/admin/Profile';
 import OrderManagement from './pages/admin/OrderManagement';
 import FleetMonitoring from './pages/admin/FleetMonitoring';
 import Customers from './pages/admin/Customers';
@@ -89,6 +90,7 @@ const App: React.FC = () => {
         </ProtectedRoute>
       }>
         <Route index element={<Dashboard />} />
+        <Route path="profile" element={<AdminProfile />} />
         <Route path="orders" element={<OrderManagement />} />
         <Route path="fleet" element={<FleetMonitoring />} />
         <Route path="customers" element={<Customers />} />

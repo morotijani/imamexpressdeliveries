@@ -63,17 +63,33 @@ const AdminLayout: React.FC = () => {
         </nav>
 
         {/* User Area */}
-        <div style={{ 
-          padding: '1.5rem', 
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: sidebarOpen ? 'space-between' : 'center'
-        }}>
+        <div 
+          onClick={() => navigate('/admin/profile')}
+          style={{ 
+            padding: '1.5rem', 
+            borderTop: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: sidebarOpen ? 'space-between' : 'center',
+            cursor: 'pointer'
+          }}
+          className="nav-item-hover"
+        >
           {sidebarOpen ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', overflow: 'hidden' }}>
-              <div style={{ width: '35px', height: '35px', borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                {user?.name?.charAt(0) || 'A'}
+              <div style={{ 
+                width: '35px', 
+                height: '35px', 
+                borderRadius: '50%', 
+                background: user?.profileImage ? `url(${user.profileImage}) center/cover` : 'var(--primary)', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                fontWeight: 'bold',
+                color: '#fff',
+                fontSize: '0.8rem'
+              }}>
+                {!user?.profileImage && (user?.name?.charAt(0) || 'A')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                 <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{user?.name || 'Administrator'}</span>
@@ -81,8 +97,19 @@ const AdminLayout: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div style={{ width: '35px', height: '35px', borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-              {user?.name?.charAt(0) || 'A'}
+            <div style={{ 
+              width: '35px', 
+              height: '35px', 
+              borderRadius: '50%', 
+              background: user?.profileImage ? `url(${user.profileImage}) center/cover` : 'var(--primary)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              fontWeight: 'bold',
+              color: '#fff',
+              fontSize: '0.8rem'
+            }}>
+              {!user?.profileImage && (user?.name?.charAt(0) || 'A')}
             </div>
           )}
         </div>

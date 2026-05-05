@@ -80,6 +80,7 @@ const OrderManagement: React.FC = () => {
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
+  const [assigning, setAssigning] = useState(false);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
@@ -117,6 +118,7 @@ const OrderManagement: React.FC = () => {
 
   const handleAssignRider = async (orderId: string, riderId: string) => {
     if (!riderId) return;
+    setAssigning(true);
     try {
       await axios.post('http://localhost:5000/api/admin/orders/assign', 
         { orderId, riderId },
@@ -126,6 +128,8 @@ const OrderManagement: React.FC = () => {
       fetchData(); // Refresh list to get updated order
     } catch (err) {
       toast.error('Failed to assign rider');
+    } finally {
+      setAssigning(false);
     }
   };
 
@@ -314,9 +318,10 @@ const OrderManagement: React.FC = () => {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <select 
                       className="input-field" 
-                      style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)' }}
+                      style={{ padding: '0.75rem', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', opacity: assigning ? 0.5 : 1 }}
                       value={selectedOrder.rider?.id || ""}
                       onChange={(e) => handleAssignRider(selectedOrder.id, e.target.value)}
+                      disabled={assigning}
                     >
                       <option value="" disabled>Assign a Rider</option>
                       {riders.map(r => <option key={r.id} value={r.id} style={{ color: '#000' }}>{r.name} - {r.phone}</option>)}

@@ -17,6 +17,7 @@ const AssignedDeliveries: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
     fetchOrders();
@@ -36,6 +37,7 @@ const AssignedDeliveries: React.FC = () => {
   };
 
   const handleStatusUpdate = async (orderId: string, newStatus: string) => {
+    setUpdating(true);
     try {
       await axios.patch(`http://localhost:5000/api/rider/orders/${orderId}/status`, 
         { status: newStatus },
@@ -45,6 +47,8 @@ const AssignedDeliveries: React.FC = () => {
       fetchOrders();
     } catch (err: any) {
       alert(err.response?.data?.message || 'Failed to update status');
+    } finally {
+      setUpdating(false);
     }
   };
 
@@ -95,19 +99,21 @@ const AssignedDeliveries: React.FC = () => {
                 {order.status === 'ASSIGNED' && (
                   <button 
                     className="btn btn-primary" 
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, opacity: updating ? 0.7 : 1 }}
                     onClick={() => handleStatusUpdate(order.id, 'PICKED_UP')}
+                    disabled={updating}
                   >
-                    Mark as Picked Up
+                    {updating ? 'Updating...' : 'Mark as Picked Up'}
                   </button>
                 )}
                 {order.status === 'PICKED_UP' && (
                   <button 
                     className="btn btn-primary" 
-                    style={{ flex: 1, background: 'linear-gradient(135deg, var(--secondary), var(--secondary-hover))', boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.39)' }}
+                    style={{ flex: 1, background: 'linear-gradient(135deg, var(--secondary), var(--secondary-hover))', boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.39)', opacity: updating ? 0.7 : 1 }}
                     onClick={() => handleStatusUpdate(order.id, 'DELIVERED')}
+                    disabled={updating}
                   >
-                    Mark as Delivered
+                    {updating ? 'Updating...' : 'Mark as Delivered'}
                   </button>
                 )}
                 {order.status === 'DELIVERED' && (
