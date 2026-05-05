@@ -12,6 +12,8 @@ import OrderHistory from './pages/customer/OrderHistory';
 import Dashboard from './pages/admin/Dashboard';
 import OrderManagement from './pages/admin/OrderManagement';
 import FleetMonitoring from './pages/admin/FleetMonitoring';
+import Customers from './pages/admin/Customers';
+import RidersManagement from './pages/admin/RidersManagement';
 import AssignedDeliveries from './pages/rider/AssignedDeliveries';
 import Profile from './pages/customer/Profile';
 
@@ -86,6 +88,8 @@ const App: React.FC = () => {
         <Route index element={<Dashboard />} />
         <Route path="orders" element={<OrderManagement />} />
         <Route path="fleet" element={<FleetMonitoring />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="riders" element={<RidersManagement />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

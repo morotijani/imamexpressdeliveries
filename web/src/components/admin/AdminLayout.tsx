@@ -52,9 +52,10 @@ const AdminLayout: React.FC = () => {
         <nav style={{ flex: 1, padding: '1.5rem 0', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <NavItem to="/admin" icon="dashboard" label="Dashboard" open={sidebarOpen} end />
           <NavItem to="/admin/orders" icon="view_list" label="Order Management" open={sidebarOpen} />
-          {/* Conceptual Links for future features */}
-          <NavItem to="/admin/fleet" icon="two_wheeler" label="Fleet Monitoring" open={sidebarOpen} />
+          <NavItem to="/admin/fleet" icon="explore" label="Fleet Monitoring" open={sidebarOpen} />
+          <NavItem to="/admin/riders" icon="sports_motorsports" label="Riders Management" open={sidebarOpen} />
           <NavItem to="/admin/customers" icon="group" label="Customers" open={sidebarOpen} />
+          {/* Conceptual Links for future features */}
           <NavItem to="/admin/analytics" icon="analytics" label="Analytics" open={sidebarOpen} />
           <NavItem to="/admin/settings" icon="settings" label="Settings" open={sidebarOpen} />
         </nav>
