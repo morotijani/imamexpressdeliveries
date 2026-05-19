@@ -513,3 +513,9 @@ a {
     display: none !important;
   }
 }
+
+/* Premium Notification Hover State */
+.notification-hover:hover {
+  background: rgba(160, 32, 240, 0.06) !important;
+}
+
