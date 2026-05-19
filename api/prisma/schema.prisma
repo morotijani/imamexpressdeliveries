@@ -52,6 +52,7 @@ model Order {
   receiverName       String
   receiverContact    String
   packageDescription String?
+  packageType        String?
   status             OrderStatus @default(PENDING)
   price              Float
   distance           Float?
@@ -67,9 +68,14 @@ model Order {
 }
 
 model PricingConfig {
-  id                String   @id @default(uuid())
-  baseRate          Float    @default(5.0)
-  perKmRate         Float    @default(1.5)
-  expressMultiplier Float    @default(1.5)
-  updatedAt         DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  baseRate            Float    @default(5.0)
+  perKmRate           Float    @default(1.5)
+  expressMultiplier   Float    @default(1.5)
+  documentMultiplier  Float    @default(1.0)
+  foodMultiplier      Float    @default(1.2)
+  electronicsMultiplier Float    @default(1.5)
+  fragileMultiplier   Float    @default(1.8)
+  otherMultiplier     Float    @default(1.0)
+  updatedAt           DateTime @updatedAt
 }

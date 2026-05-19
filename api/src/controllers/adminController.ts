@@ -78,7 +78,7 @@ export const getCustomers = async (req: AuthRequest, res: Response): Promise<any
 
 export const updatePricing = async (req: AuthRequest, res: Response): Promise<any> => {
   try {
-    const { baseRate, perKmRate, expressMultiplier } = req.body;
+    const { baseRate, perKmRate, expressMultiplier, documentMultiplier, foodMultiplier, electronicsMultiplier, fragileMultiplier, otherMultiplier } = req.body;
 
     if (baseRate < 0 || perKmRate < 0 || expressMultiplier < 0) {
       return res.status(400).json({ message: 'Pricing values cannot be negative' });
@@ -89,11 +89,11 @@ export const updatePricing = async (req: AuthRequest, res: Response): Promise<an
     if (pricing) {
       pricing = await prisma.pricingConfig.update({
         where: { id: pricing.id },
-        data: { baseRate, perKmRate, expressMultiplier }
+        data: { baseRate, perKmRate, expressMultiplier, documentMultiplier, foodMultiplier, electronicsMultiplier, fragileMultiplier, otherMultiplier }
       });
     } else {
       pricing = await prisma.pricingConfig.create({
-        data: { baseRate, perKmRate, expressMultiplier }
+        data: { baseRate, perKmRate, expressMultiplier, documentMultiplier, foodMultiplier, electronicsMultiplier, fragileMultiplier, otherMultiplier }
       });
     }
 
@@ -107,7 +107,7 @@ export const getPricing = async (req: AuthRequest, res: Response): Promise<any> 
     const pricing = await prisma.pricingConfig.findFirst();
     if (!pricing) {
       // Return defaults if not found
-      return res.json({ pricing: { baseRate: 5.0, perKmRate: 1.5, expressMultiplier: 1.5 } });
+      return res.json({ pricing: { baseRate: 5.0, perKmRate: 1.5, expressMultiplier: 1.5, documentMultiplier: 1.0, foodMultiplier: 1.2, electronicsMultiplier: 1.5, fragileMultiplier: 1.8, otherMultiplier: 1.0 } });
     }
     res.json({ pricing });
   } catch (error: any) {

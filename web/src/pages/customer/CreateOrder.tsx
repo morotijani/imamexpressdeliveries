@@ -46,6 +46,7 @@ const CreateOrder: React.FC = () => {
 
   const [priceEstimate, setPriceEstimate] = useState<number | null>(null);
   const [distanceEstimate, setDistanceEstimate] = useState<number | null>(null);
+  const [priceMultiplier, setPriceMultiplier] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
   const [savedAddresses, setSavedAddresses] = useState({ home: '', work: '' });
@@ -99,16 +100,19 @@ const CreateOrder: React.FC = () => {
         try {
           const res = await axios.post('http://localhost:5000/api/orders/estimate', {
             pickupLocation: formData.pickupLocation,
-            dropoffLocation: formData.dropoffLocation
+            dropoffLocation: formData.dropoffLocation,
+            packageType: formData.packageType
           }, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setPriceEstimate(res.data.estimate);
           setDistanceEstimate(res.data.distance);
+          setPriceMultiplier(res.data.multiplier);
         } catch (err: any) {
           console.error("Failed to fetch estimate", err);
           setPriceEstimate(null);
           setDistanceEstimate(null);
+          setPriceMultiplier(null);
         }
       } else {
         setPriceEstimate(null);
@@ -122,7 +126,7 @@ const CreateOrder: React.FC = () => {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [formData.pickupLocation, formData.dropoffLocation, token]);
+  }, [formData.pickupLocation, formData.dropoffLocation, formData.packageType, token]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -166,6 +170,7 @@ const CreateOrder: React.FC = () => {
           });
           setPriceEstimate(null);
           setDistanceEstimate(null);
+          setPriceMultiplier(null);
           setDirections(null);
           return 'Order created successfully!';
         },
@@ -348,9 +353,16 @@ const CreateOrder: React.FC = () => {
             <div style={{ fontWeight: 700, fontSize: '1.125rem' }}>{Math.round(distanceEstimate * 3)} min</div>
           </div>
           <div style={{ width: '1px', height: '30px', background: '#eee' }}></div>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
             <div style={{ fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Cost</div>
-            <div style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--primary)' }}>GH₵{priceEstimate.toFixed(2)}</div>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+              <div style={{ fontWeight: 700, fontSize: '1.125rem', color: 'var(--primary)' }}>GH₵{priceEstimate.toFixed(2)}</div>
+              {priceMultiplier && priceMultiplier !== 1.0 && (
+                <span style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '2px 6px', borderRadius: '10px', fontSize: '0.65rem', fontWeight: 700 }}>
+                  x{priceMultiplier} Rate
+                </span>
+              )}
+            </div>
           </div>
         </div>
       )}

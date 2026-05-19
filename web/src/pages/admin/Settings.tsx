@@ -7,6 +7,11 @@ interface PricingConfig {
   baseRate: number;
   perKmRate: number;
   expressMultiplier: number;
+  documentMultiplier: number;
+  foodMultiplier: number;
+  electronicsMultiplier: number;
+  fragileMultiplier: number;
+  otherMultiplier: number;
 }
 
 interface SystemStatus {
@@ -17,7 +22,10 @@ interface SystemStatus {
 
 const Settings: React.FC = () => {
   const { token } = useAuth();
-  const [pricing, setPricing] = useState<PricingConfig>({ baseRate: 0, perKmRate: 0, expressMultiplier: 0 });
+  const [pricing, setPricing] = useState<PricingConfig>({ 
+    baseRate: 0, perKmRate: 0, expressMultiplier: 0,
+    documentMultiplier: 1.0, foodMultiplier: 1.2, electronicsMultiplier: 1.5, fragileMultiplier: 1.8, otherMultiplier: 1.0
+  });
   const [status, setStatus] = useState<SystemStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -126,7 +134,30 @@ const Settings: React.FC = () => {
                   value={pricing.expressMultiplier} 
                   onChange={e => setPricing({...pricing, expressMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} 
                 />
-                <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>Conceptual multiplier for priority delivery</p>
+              </div>
+            </div>
+
+            <h4 style={{ fontSize: '1rem', color: '#fff', marginBottom: '1rem', marginTop: '0.5rem' }}>Package Type Multipliers</h4>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="input-group">
+                <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Documents</label>
+                <input type="number" step="0.1" min="0" required className="input-field" value={pricing.documentMultiplier} onChange={e => setPricing({...pricing, documentMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} />
+              </div>
+              <div className="input-group">
+                <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Food</label>
+                <input type="number" step="0.1" min="0" required className="input-field" value={pricing.foodMultiplier} onChange={e => setPricing({...pricing, foodMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} />
+              </div>
+              <div className="input-group">
+                <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Electronics</label>
+                <input type="number" step="0.1" min="0" required className="input-field" value={pricing.electronicsMultiplier} onChange={e => setPricing({...pricing, electronicsMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} />
+              </div>
+              <div className="input-group">
+                <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Fragile</label>
+                <input type="number" step="0.1" min="0" required className="input-field" value={pricing.fragileMultiplier} onChange={e => setPricing({...pricing, fragileMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} />
+              </div>
+              <div className="input-group">
+                <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clothing / Other</label>
+                <input type="number" step="0.1" min="0" required className="input-field" value={pricing.otherMultiplier} onChange={e => setPricing({...pricing, otherMultiplier: Math.max(0, parseFloat(e.target.value) || 0)})} />
               </div>
             </div>
 
