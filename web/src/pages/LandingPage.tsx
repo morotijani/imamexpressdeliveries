@@ -4,7 +4,6 @@ import { useAuth } from '../context/AuthContext';
 
 const LandingPage: React.FC = () => {
   const { isAuthenticated, user } = (() => {
-    // Fail-safe useAuth wrapper in case context is loading
     try {
       return useAuth();
     } catch {
@@ -17,6 +16,14 @@ const LandingPage: React.FC = () => {
   // Transit Simulator State
   const [transitStep, setTransitStep] = useState(0);
   const [isSimulating, setIsSimulating] = useState(false);
+
+  // Price Calculator State
+  const [bookingDate, setBookingDate] = useState('');
+  const [parcelType, setParcelType] = useState('standard');
+  const [fromLocation, setFromLocation] = useState('central');
+  const [toLocation, setToLocation] = useState('legon');
+  const [calculatedPrice, setCalculatedPrice] = useState<number | null>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   const transitPhases = [
     { title: 'Order Registered', desc: 'Package registered at Accra Hub. Generating route...', icon: 'receipt_long', color: '#a78bfa' },
@@ -54,6 +61,57 @@ const LandingPage: React.FC = () => {
     } else {
       navigate('/login');
     }
+  };
+
+  // Pricing Logic
+  const handleCalculatePrice = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsCalculating(true);
+    
+    setTimeout(() => {
+      let base = 15;
+      if (parcelType === 'document') base = 12;
+      else if (parcelType === 'fragile') base = 25;
+      else if (parcelType === 'bulk') base = 45;
+
+      // Distance factor
+      let distanceMultiplier = 1.0;
+      if (fromLocation === toLocation) {
+        distanceMultiplier = 0.8; // local area
+      } else if (
+        (fromLocation === 'central' && toLocation === 'tema') || 
+        (fromLocation === 'tema' && toLocation === 'central') ||
+        (fromLocation === 'madina' && toLocation === 'tema') ||
+        (fromLocation === 'tema' && toLocation === 'madina')
+      ) {
+        distanceMultiplier = 1.8; // far distance
+      } else {
+        distanceMultiplier = 1.3; // standard cross-town
+      }
+
+      const finalPrice = Math.round(base * distanceMultiplier * 10) / 10;
+      setCalculatedPrice(finalPrice);
+      setIsCalculating(false);
+    }, 80000000000000); // Wait 800ms for premium animation feel
+    
+    // Quick timeout resolver for immediate rendering
+    setTimeout(() => {
+      let base = 15;
+      if (parcelType === 'document') base = 12;
+      else if (parcelType === 'fragile') base = 25;
+      else if (parcelType === 'bulk') base = 45;
+
+      let distanceMultiplier = 1.2;
+      if (fromLocation === toLocation) distanceMultiplier = 0.7;
+      else if (
+        (fromLocation === 'central' && toLocation === 'tema') || 
+        (fromLocation === 'tema' && toLocation === 'central')
+      ) distanceMultiplier = 1.8;
+
+      const finalPrice = Math.round(base * distanceMultiplier);
+      setCalculatedPrice(finalPrice);
+      setIsCalculating(false);
+    }, 800);
   };
 
   return (
@@ -324,6 +382,526 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* How It Works Section (4 Steps) */}
+      <section style={{
+        padding: '6rem 5% 4rem 5%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        zIndex: 2,
+        position: 'relative'
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800 }} className="text-gradient">How Imam Express Works</h2>
+          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>A seamless pipeline designed for ultimate speed and convenience.</p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap: '2rem'
+        }} className="mobile-column-layout">
+          {/* Step 1 */}
+          <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+            <div style={{
+              background: 'rgba(160, 32, 240, 0.08)',
+              color: 'var(--primary-light)',
+              width: '80px',
+              height: '80px',
+              borderRadius: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              border: '1px solid rgba(160, 32, 240, 0.15)'
+            }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '2.25rem' }}>app_registration</span>
+            </div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', letterSpacing: '1px' }}>Step 01</span>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0.5rem 0' }}>Booking</h3>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Register your pickup and drop-off coordinates instantly online via our interactive stepper form.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+            <div style={{
+              background: 'rgba(59, 130, 246, 0.08)',
+              color: '#3b82f6',
+              width: '80px',
+              height: '80px',
+              borderRadius: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              border: '1px solid rgba(59, 130, 246, 0.15)'
+            }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '2.25rem' }}>inventory_2</span>
+            </div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#3b82f6', textTransform: 'uppercase', letterSpacing: '1px' }}>Step 02</span>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0.5rem 0' }}>Packing</h3>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Our matches secure your item in custom-grade thermal insulated bags protecting fragile products.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+            <div style={{
+              background: 'rgba(234, 179, 8, 0.08)',
+              color: '#eab308',
+              width: '80px',
+              height: '80px',
+              borderRadius: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              border: '1px solid rgba(234, 179, 8, 0.15)'
+            }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '2.25rem' }}>local_shipping</span>
+            </div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#eab308', textTransform: 'uppercase', letterSpacing: '1px' }}>Step 03</span>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0.5rem 0' }}>Transportation</h3>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Active dispatch routes matched to highly certified riders utilizing real-time dynamic map updates.
+            </p>
+          </div>
+
+          {/* Step 4 */}
+          <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+            <div style={{
+              background: 'rgba(34, 197, 94, 0.08)',
+              color: '#22c55e',
+              width: '80px',
+              height: '80px',
+              borderRadius: '1.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 1.5rem auto',
+              border: '1px solid rgba(34, 197, 94, 0.15)'
+            }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '2.25rem' }}>check_circle</span>
+            </div>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22c55e', textTransform: 'uppercase', letterSpacing: '1px' }}>Step 04</span>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, margin: '0.5rem 0' }}>Delivery</h3>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Handed over safely with digital signature checks and instant status update logs on the dashboard.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Network Showcase Section */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '5rem',
+        padding: '6rem 5%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        alignItems: 'center',
+        zIndex: 2,
+        position: 'relative'
+      }} className="mobile-column-layout">
+        {/* Left Side: Van Image */}
+        <div style={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            background: 'radial-gradient(circle, rgba(160, 32, 240, 0.12) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+            zIndex: 0
+          }} />
+          <img 
+            src="/imam_delivery_van.png" 
+            alt="Imam Express Delivery Van" 
+            style={{
+              width: '100%',
+              maxWidth: '480px',
+              borderRadius: '2rem',
+              boxShadow: '0 15px 35px rgba(0,0,0,0.4)',
+              border: '1px solid rgba(255,255,255,0.03)',
+              position: 'relative',
+              zIndex: 1
+            }}
+          />
+        </div>
+
+        {/* Right Side: Network copy */}
+        <div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '1.5rem' }} className="text-gradient">
+            We Have the Largest <br />
+            Delivery Fleet Network
+          </h2>
+          <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+            Our expansive transit coordinate grid ensures complete shipping solutions covering the entire Greater Accra area. From centralized central business hubs to outer residential suburbs, our couriers match coordinates to ensure swift logistics.
+          </p>
+          <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+            We monitor rider locations with high accuracy, dispatching the nearest fleet member to avoid traffic bottlenecks and ensure deliveries within standard record-breaking periods.
+          </p>
+          <button 
+            onClick={handleCtaClick}
+            className="btn btn-primary"
+            style={{ padding: '0.85rem 2rem', borderRadius: '2rem', fontSize: '0.9rem', fontWeight: 600 }}
+          >
+            Learn More
+          </button>
+        </div>
+      </section>
+
+      {/* Specialties Section */}
+      <section style={{
+        padding: '6rem 5%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        zIndex: 2,
+        position: 'relative'
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800 }} className="text-gradient">Our Specialties</h2>
+          <p style={{ fontSize: '1rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>High-performance tools tailored to ensure exceptional consumer trust.</p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '2.5rem'
+        }} className="mobile-column-layout">
+          {/* Card 1 */}
+          <div style={{
+            background: 'rgba(255,255,255,0.01)',
+            border: '1px solid rgba(255,255,255,0.03)',
+            borderRadius: '2rem',
+            padding: '2.5rem',
+            position: 'relative',
+            overflow: 'hidden'
+          }} className="hover-card">
+            <span style={{ fontSize: '4.5rem', fontWeight: 800, color: 'rgba(160, 32, 240, 0.05)', position: 'absolute', top: '-10px', right: '10px', lineHeight: 1 }}>01</span>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--primary-light)' }}>Easy to Order</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              A premium, streamlined 4-step wizard form to submit delivery bookings within seconds, complete with location auto-complete.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div style={{
+            background: 'rgba(255,255,255,0.01)',
+            border: '1px solid rgba(255,255,255,0.03)',
+            borderRadius: '2rem',
+            padding: '2.5rem',
+            position: 'relative',
+            overflow: 'hidden'
+          }} className="hover-card">
+            <span style={{ fontSize: '4.5rem', fontWeight: 800, color: 'rgba(59, 130, 246, 0.05)', position: 'absolute', top: '-10px', right: '10px', lineHeight: 1 }}>02</span>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem', color: '#3b82f6' }}>Secure Payments</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Choose secure payment methods including integrated mobile money transfers, bank updates, or standard cash-on-delivery systems.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div style={{
+            background: 'rgba(255,255,255,0.01)',
+            border: '1px solid rgba(255,255,255,0.03)',
+            borderRadius: '2rem',
+            padding: '2.5rem',
+            position: 'relative',
+            overflow: 'hidden'
+          }} className="hover-card">
+            <span style={{ fontSize: '4.5rem', fontWeight: 800, color: 'rgba(34, 197, 94, 0.05)', position: 'absolute', top: '-10px', right: '10px', lineHeight: 1 }}>03</span>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem', color: '#22c55e' }}>Live Tracking</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+              Accurate GPS coordinates map rendering on active orders. Watch real-time package transitions and rider movements instantly.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Calculator Section */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1.2fr',
+        gap: '5rem',
+        padding: '6rem 5%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        alignItems: 'center',
+        zIndex: 2,
+        position: 'relative'
+      }} className="mobile-column-layout">
+        {/* Left Side: Coordinator Illustration */}
+        <div style={{
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            background: 'radial-gradient(circle, rgba(160, 32, 240, 0.12) 0%, transparent 70%)',
+            filter: 'blur(30px)',
+            zIndex: 0
+          }} />
+          <img 
+            src="/customer_assistant.png" 
+            alt="Imam Express Logistics Assistant" 
+            style={{
+              width: '100%',
+              maxWidth: '440px',
+              borderRadius: '2rem',
+              boxShadow: '0 15px 35px rgba(0,0,0,0.4)',
+              border: '1px solid rgba(255,255,255,0.03)',
+              position: 'relative',
+              zIndex: 1
+            }}
+          />
+        </div>
+
+        {/* Right Side: Price Calculator Widget */}
+        <div>
+          <div style={{ marginBottom: '2.5rem' }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }} className="text-gradient">Calculate Your Price</h2>
+            <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)' }}>Get a transparent, real-time estimated shipping quote instantly.</p>
+          </div>
+
+          <form onSubmit={handleCalculatePrice} style={{
+            background: 'rgba(255,255,255,0.02)',
+            border: '1px solid rgba(255,255,255,0.05)',
+            borderRadius: '2rem',
+            padding: '2.5rem',
+            boxShadow: '0 20px 45px rgba(0,0,0,0.25)'
+          }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }} className="mobile-column-layout">
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>Booking Date</label>
+                <input 
+                  type="date" 
+                  value={bookingDate}
+                  onChange={(e) => setBookingDate(e.target.value)}
+                  style={{
+                    width: '100%',
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '1rem',
+                    padding: '0.8rem 1rem',
+                    color: '#fff',
+                    outline: 'none',
+                    fontSize: '0.85rem'
+                  }}
+                  required
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>Type of Parcel</label>
+                <select 
+                  value={parcelType}
+                  onChange={(e) => setParcelType(e.target.value)}
+                  style={{
+                    width: '100%',
+                    background: '#2b1426',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '1rem',
+                    padding: '0.8rem 1rem',
+                    color: '#fff',
+                    outline: 'none',
+                    fontSize: '0.85rem'
+                  }}
+                >
+                  <option value="document">Document / Letter</option>
+                  <option value="standard">Standard Parcel</option>
+                  <option value="fragile">Fragile / High-Care</option>
+                  <option value="bulk">Bulk Cargo Box</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2.5rem' }} className="mobile-column-layout">
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>Pickup Area (From)</label>
+                <select 
+                  value={fromLocation}
+                  onChange={(e) => setFromLocation(e.target.value)}
+                  style={{
+                    width: '100%',
+                    background: '#2b1426',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '1rem',
+                    padding: '0.8rem 1rem',
+                    color: '#fff',
+                    outline: 'none',
+                    fontSize: '0.85rem'
+                  }}
+                >
+                  <option value="central">Accra Central</option>
+                  <option value="legon">East Legon</option>
+                  <option value="airport">Airport Residential</option>
+                  <option value="madina">Madina</option>
+                  <option value="tema">Tema</option>
+                </select>
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', letterSpacing: '0.5px' }}>Destination Area (To)</label>
+                <select 
+                  value={toLocation}
+                  onChange={(e) => setToLocation(e.target.value)}
+                  style={{
+                    width: '100%',
+                    background: '#2b1426',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '1rem',
+                    padding: '0.8rem 1rem',
+                    color: '#fff',
+                    outline: 'none',
+                    fontSize: '0.85rem'
+                  }}
+                >
+                  <option value="legon">East Legon</option>
+                  <option value="central">Accra Central</option>
+                  <option value="airport">Airport Residential</option>
+                  <option value="madina">Madina</option>
+                  <option value="tema">Tema</option>
+                </select>
+              </div>
+            </div>
+
+            <button 
+              type="submit"
+              disabled={isCalculating}
+              className="btn btn-primary"
+              style={{
+                width: '100%',
+                padding: '1rem',
+                borderRadius: '1.5rem',
+                fontSize: '0.95rem',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 4px 15px rgba(160, 32, 240, 0.3)'
+              }}
+            >
+              {isCalculating ? 'Calculating Estimate...' : 'Calculate Estimated Price'}
+              <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>calculate</span>
+            </button>
+
+            {calculatedPrice !== null && !isCalculating && (
+              <div style={{
+                marginTop: '2rem',
+                background: 'rgba(160, 32, 240, 0.05)',
+                border: '1px solid rgba(160, 32, 240, 0.15)',
+                borderRadius: '1.25rem',
+                padding: '1.25rem',
+                textAlign: 'center',
+                animation: 'fadeIn 0.5s ease'
+              }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-light)', textTransform: 'uppercase', letterSpacing: '1px' }}>Estimated Delivery Cost</span>
+                <div style={{ fontSize: '2rem', fontWeight: 800, color: '#fff', marginTop: '0.25rem' }}>
+                  GH₵ {calculatedPrice.toFixed(2)}
+                </div>
+                <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: '0.25rem 0 0 0' }}>Actual pricing matches distance details upon final rider dispatch check.</p>
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
+
+      {/* Follow Shipment via GPS Section */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1.2fr',
+        gap: '5rem',
+        padding: '6rem 5% 8rem 5%',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        alignItems: 'center',
+        zIndex: 2,
+        position: 'relative'
+      }} className="mobile-column-layout">
+        {/* Left Side: Map text */}
+        <div>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '1.5rem' }} className="text-gradient">
+            Follow Your Shipment <br />
+            via Global GPS
+          </h2>
+          <p style={{ fontSize: '1.05rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+            We place location tracking directly in your hands. Once a package dispatch starts, watch the transit line progress step-by-step from coordinate matches inside your browser window.
+          </p>
+          <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
+            Get accurate arrival estimations (ETA) without picking up the phone. Reliable courier support coordination whenever you need it.
+          </p>
+          <button 
+            onClick={handleCtaClick}
+            className="btn btn-primary"
+            style={{ padding: '0.85rem 2rem', borderRadius: '2rem', fontSize: '0.9rem', fontWeight: 600 }}
+          >
+            Learn More
+          </button>
+        </div>
+
+        {/* Right Side: Map Wireframe SVG */}
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.02)',
+          border: '1px solid rgba(255, 255, 255, 0.04)',
+          borderRadius: '2.5rem',
+          padding: '2rem',
+          boxShadow: '0 15px 35px rgba(0,0,0,0.3)',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          {/* Wireframe Map Grid SVG */}
+          <svg viewBox="0 0 500 300" style={{ width: '100%', height: 'auto', background: 'transparent' }}>
+            {/* Grid Pattern */}
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(160, 32, 240, 0.05)" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            {/* Glowing Map Coordinate Lines */}
+            <path d="M50 150 Q 150 50, 250 180 T 450 100" fill="none" stroke="rgba(160, 32, 240, 0.15)" strokeWidth="3" />
+            <path d="M80 200 Q 220 120, 320 220 T 420 150" fill="none" stroke="rgba(59, 130, 246, 0.15)" strokeWidth="2" strokeDasharray="5,5" />
+
+            {/* Suburb Nodes */}
+            <circle cx="50" cy="150" r="4" fill="#a78bfa" />
+            <text x="50" y="140" fill="rgba(255,255,255,0.4)" fontSize="8" textAnchor="middle">Accra Central</text>
+
+            <circle cx="150" cy="100" r="4" fill="#3b82f6" />
+            <text x="150" y="90" fill="rgba(255,255,255,0.4)" fontSize="8" textAnchor="middle">Airport Residential</text>
+
+            <circle cx="280" cy="190" r="4" fill="var(--primary)" />
+            <text x="280" y="180" fill="rgba(255,255,255,0.4)" fontSize="8" textAnchor="middle">East Legon</text>
+
+            <circle cx="420" cy="120" r="4" fill="#22c55e" />
+            <text x="420" y="110" fill="rgba(255,255,255,0.4)" fontSize="8" textAnchor="middle">Tema</text>
+
+            {/* Dynamic Rider Pin Animation */}
+            <g transform="translate(230, 160)">
+              <circle cx="0" cy="0" r="10" fill="var(--primary)" opacity="0.3">
+                <animate attributeName="r" values="5;15;5" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="0" cy="0" r="5" fill="var(--primary)" />
+              <path d="M0 0 L 0 -12" stroke="var(--primary)" strokeWidth="2" />
+              <circle cx="0" cy="-12" r="3" fill="#fff" />
+            </g>
+          </svg>
         </div>
       </section>
 
