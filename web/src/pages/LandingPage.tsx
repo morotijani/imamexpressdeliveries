@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LandingPage: React.FC = () => {
-  const { isAuthenticated, user } = (() => {
-    try {
-      return useAuth();
-    } catch {
-      return { isAuthenticated: false, user: null };
-    }
-  })();
+  const auth = useAuth();
+  const isAuthenticated = auth?.isAuthenticated || false;
+  const user = auth?.user || null;
 
   const navigate = useNavigate();
 
@@ -140,9 +138,13 @@ const LandingPage: React.FC = () => {
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    }
   };
-  
+
   const staggerContainer = {
     hidden: { opacity: 0 },
     visible: {
@@ -154,10 +156,9 @@ const LandingPage: React.FC = () => {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      background: '#0a0a0c', // More subtle, sophisticated dark background
+      background: '#16161c', // Softer, lighter dark background
       color: '#fff', 
       fontFamily: "'Outfit', sans-serif", 
-      overflowX: 'hidden',
       position: 'relative'
     }}>
       {/* Background Subtle Neon Orbs */}
@@ -181,50 +182,6 @@ const LandingPage: React.FC = () => {
         zIndex: 0,
         pointerEvents: 'none'
       }} />
-
-      {/* Top Navbar */}
-      <nav style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1.5rem 5%',
-        borderBottom: '1px solid rgba(255,255,255,0.03)',
-        background: 'rgba(10, 10, 12, 0.85)',
-        backdropFilter: 'blur(20px)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          <div style={{ background: 'var(--primary)', color: 'white', padding: '0.5rem', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', boxShadow: '0 4px 12px rgba(160, 32, 240, 0.2)' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>local_shipping</span>
-          </div>
-          <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.5px' }} className="text-gradient">Imam Express</span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          {isAuthenticated ? (
-            <button 
-              onClick={handleCtaClick}
-              className="btn btn-primary"
-              style={{ borderRadius: '2rem', padding: '0.6rem 1.5rem', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-            >
-              Go to Dashboard <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>arrow_forward</span>
-            </button>
-          ) : (
-            <>
-              <span onClick={() => navigate('/login')} style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', cursor: 'pointer', transition: 'color 0.2s' }} className="hover-light">Sign In</span>
-              <button 
-                onClick={() => navigate('/register')}
-                className="btn btn-primary"
-                style={{ borderRadius: '2rem', padding: '0.6rem 1.5rem', fontSize: '0.875rem' }}
-              >
-                Register Now
-              </button>
-            </>
-          )}
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <section style={{
@@ -420,12 +377,12 @@ const LandingPage: React.FC = () => {
                     width: '44px',
                     height: '44px',
                     borderRadius: '50%',
-                    background: idx <= transitStep ? 'var(--primary)' : '#1a1820',
+                    background: idx <= transitStep ? 'var(--primary)' : '#262630',
                     color: '#fff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    border: idx <= transitStep ? '3px solid #0a0a0c' : '3px solid rgba(255,255,255,0.05)',
+                    border: idx <= transitStep ? '3px solid #16161c' : '3px solid rgba(255,255,255,0.05)',
                     transition: 'all 0.4s ease'
                   }}>
                     <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>{phase.icon}</span>
@@ -728,7 +685,7 @@ const LandingPage: React.FC = () => {
                   onChange={(e) => setParcelType(e.target.value)}
                   style={{
                     width: '100%',
-                    background: '#16141a',
+                    background: '#23232a',
                     border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: '1rem',
                     padding: '0.8rem 1rem',
@@ -753,7 +710,7 @@ const LandingPage: React.FC = () => {
                   onChange={(e) => setFromLocation(e.target.value)}
                   style={{
                     width: '100%',
-                    background: '#16141a',
+                    background: '#23232a',
                     border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: '1rem',
                     padding: '0.8rem 1rem',
@@ -776,7 +733,7 @@ const LandingPage: React.FC = () => {
                   onChange={(e) => setToLocation(e.target.value)}
                   style={{
                     width: '100%',
-                    background: '#16141a',
+                    background: '#23232a',
                     border: '1px solid rgba(255,255,255,0.08)',
                     borderRadius: '1rem',
                     padding: '0.8rem 1rem',
@@ -976,7 +933,7 @@ const LandingPage: React.FC = () => {
         }}
       >
         <motion.div variants={fadeInUp} style={{
-          background: 'linear-gradient(135deg, rgba(160, 32, 240, 0.1) 0%, rgba(10, 10, 12, 0.9) 100%)',
+          background: 'linear-gradient(135deg, rgba(160, 32, 240, 0.1) 0%, rgba(22, 22, 28, 0.9) 100%)',
           border: '1px solid rgba(160, 32, 240, 0.2)',
           borderRadius: '3rem',
           padding: '0',
@@ -1019,77 +976,6 @@ const LandingPage: React.FC = () => {
           </div>
         </motion.div>
       </motion.section>
-
-      {/* Expanded Premium Footer */}
-      <footer style={{
-        borderTop: '1px solid rgba(255,255,255,0.05)',
-        padding: '5rem 5% 2rem 5%',
-        background: '#050505',
-        marginTop: '6rem'
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '2fr 1fr 1fr 1.5fr',
-          gap: '4rem',
-          maxWidth: '1200px',
-          margin: '0 auto 4rem auto'
-        }} className="mobile-column-layout">
-          
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
-              <div style={{ background: 'var(--primary)', color: 'white', padding: '0.5rem', borderRadius: '0.75rem', display: 'flex', alignItems: 'center' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>local_shipping</span>
-              </div>
-              <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.5px' }}>Imam Express</span>
-            </div>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '2rem', maxWidth: '300px' }}>
-              Redefining hyper-local logistics in Accra with real-time tracking, unmatched speed, and secure reliable delivery network.
-            </p>
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              {['public', 'share', 'mail'].map((icon, i) => (
-                <div key={i} style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background 0.3s' }} className="hover-bg-light">
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.1rem', color: '#fff' }}>{icon}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '1.5rem', color: '#fff' }}>Company</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {['About Us', 'Careers', 'Partner Network', 'Contact'].map(link => (
-                <li key={link}><a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} className="hover-light">{link}</a></li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '1.5rem', color: '#fff' }}>Legal</h4>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              {['Terms of Service', 'Privacy Policy', 'Cookie Policy', 'Insurance Info'].map(link => (
-                <li key={link}><a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem', transition: 'color 0.2s' }} className="hover-light">{link}</a></li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h4 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '1.5rem', color: '#fff' }}>Subscribe to Newsletter</h4>
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>Get the latest updates on new service areas and features.</p>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input type="email" placeholder="Email address" style={{ flex: 1, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: '0.75rem 1rem', color: '#fff', outline: 'none', fontSize: '0.85rem' }} />
-              <button style={{ background: 'var(--primary)', border: 'none', borderRadius: '1rem', padding: '0 1.25rem', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>send</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
-          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
-            © {new Date().getFullYear()} Imam Express Deliveries Ltd. All rights reserved. Designed with precision.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };

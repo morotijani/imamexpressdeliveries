@@ -7,6 +7,7 @@ import orderRoutes from './routes/orderRoutes';
 import riderRoutes from './routes/riderRoutes';
 import adminRoutes from './routes/adminRoutes';
 import userRoutes from './routes/userRoutes';
+import publicRoutes from './routes/publicRoutes';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/rider', riderRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/public', publicRoutes);
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

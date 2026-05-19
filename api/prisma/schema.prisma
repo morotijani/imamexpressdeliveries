@@ -79,3 +79,9 @@ model PricingConfig {
   otherMultiplier     Float    @default(1.0)
   updatedAt           DateTime @updatedAt
 }
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

@@ -22,9 +22,19 @@ import Settings from './pages/admin/Settings';
 import AssignedDeliveries from './pages/rider/AssignedDeliveries';
 import Profile from './pages/customer/Profile';
 import LandingPage from './pages/LandingPage';
+import AboutUs from './pages/public/AboutUs';
+import Careers from './pages/public/Careers';
+import PartnerNetwork from './pages/public/PartnerNetwork';
+import Contact from './pages/public/Contact';
+import TermsOfService from './pages/public/TermsOfService';
+import PrivacyPolicy from './pages/public/PrivacyPolicy';
+import CookiePolicy from './pages/public/CookiePolicy';
+import InsuranceInfo from './pages/public/InsuranceInfo';
 
 import TopNavbar from './components/TopNavbar';
+import PublicLayout from './components/public/PublicLayout';
 import AdminLayout from './components/admin/AdminLayout';
+import ScrollToTop from './components/ScrollToTop';
 
 const DefaultLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <>
@@ -47,13 +57,26 @@ const App: React.FC = () => {
   return (
     <>
       <Toaster position="top-right" />
+      <ScrollToTop />
       <Routes>
-      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/register-success" element={<RegisterSuccess />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/resend-verification" element={<ResendVerification />} />
+
+      <Route element={<PublicLayout />}>
+        <Route path="/" element={<LandingPage />} />
+        {/* Public Static Pages */}
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/partners" element={<PartnerNetwork />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/terms" element={<TermsOfService />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
+        <Route path="/insurance" element={<InsuranceInfo />} />
+      </Route>
       
       {/* Customer Routes */}
       <Route path="/customer/*" element={
