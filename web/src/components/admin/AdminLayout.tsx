@@ -19,7 +19,7 @@ const AdminLayout: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--bg-darker)', overflow: 'hidden' }}>
-      
+
       {/* Sidebar */}
       <aside style={{
         width: sidebarOpen ? '280px' : '80px',
@@ -31,11 +31,11 @@ const AdminLayout: React.FC = () => {
         zIndex: 100
       }}>
         {/* Logo Area */}
-        <div style={{ 
-          height: '70px', 
-          display: 'flex', 
-          alignItems: 'center', 
-          padding: sidebarOpen ? '0 1.5rem' : '0', 
+        <div style={{
+          height: '70px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: sidebarOpen ? '0 1.5rem' : '0',
           justifyContent: sidebarOpen ? 'space-between' : 'center',
           borderBottom: '1px solid var(--border-color)'
         }}>
@@ -45,7 +45,7 @@ const AdminLayout: React.FC = () => {
               <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--text-main)', letterSpacing: '-0.5px' }}>Imam<span style={{ color: 'var(--primary)' }}>Express</span></span>
             </div>
           )}
-          <button 
+          <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex' }}
           >
@@ -61,18 +61,18 @@ const AdminLayout: React.FC = () => {
           <NavItem to="/admin/riders" icon="sports_motorsports" label="Riders Management" open={sidebarOpen} />
           <NavItem to="/admin/customers" icon="group" label="Customers" open={sidebarOpen} />
           <NavItem to="/admin/analytics" icon="analytics" label="Analytics" open={sidebarOpen} />
-          
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', margin: '0.5rem 1rem' }}></div>
+
+          <div style={{ borderTop: '1px solid rgba(138, 43, 226, 0.247)', margin: '0.5rem 1rem' }}></div>
           <NavItem to="/admin/settings" icon="settings" label="Settings" open={sidebarOpen} />
           <NavItem to="/admin/help" icon="help" label="Help & Docs" open={sidebarOpen} />
         </nav>
 
         {/* User Area */}
-        <div 
+        <div
           onClick={() => navigate('/admin/profile')}
-          style={{ 
-            padding: '1.5rem', 
-            borderTop: '1px solid rgba(255,255,255,0.05)',
+          style={{
+            padding: '1.5rem',
+            borderTop: '1px solid rgba(138, 43, 226, 0.247)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: sidebarOpen ? 'space-between' : 'center',
@@ -82,14 +82,14 @@ const AdminLayout: React.FC = () => {
         >
           {sidebarOpen ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', overflow: 'hidden' }}>
-              <div style={{ 
-                width: '35px', 
-                height: '35px', 
-                borderRadius: '50%', 
+              <div style={{
+                width: '35px',
+                height: '35px',
+                borderRadius: '50%',
                 background: user?.profileImage ? `url(${user.profileImage.startsWith('data:') || user.profileImage.startsWith('http') ? user.profileImage : `http://localhost:5000${user.profileImage}`}) center/cover` : 'var(--primary)',
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center', 
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 fontWeight: 'bold',
                 color: '#fff',
                 fontSize: '0.8rem'
@@ -102,14 +102,14 @@ const AdminLayout: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div style={{ 
-              width: '35px', 
-              height: '35px', 
-              borderRadius: '50%', 
+            <div style={{
+              width: '35px',
+              height: '35px',
+              borderRadius: '50%',
               background: user?.profileImage ? `url(${user.profileImage.startsWith('data:') || user.profileImage.startsWith('http') ? user.profileImage : `http://localhost:5000${user.profileImage}`}) center/cover` : 'var(--primary)',
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               fontWeight: 'bold',
               color: 'var(--text-main)',
               fontSize: '0.8rem'
@@ -122,11 +122,11 @@ const AdminLayout: React.FC = () => {
 
       {/* Main Content Area */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        
+
         {/* Top Header */}
-        <header style={{ 
-          height: '70px', 
-          background: 'var(--nav-bg)', 
+        <header style={{
+          height: '70px',
+          background: 'var(--nav-bg)',
           backdropFilter: 'blur(10px)',
           borderBottom: '1px solid var(--border-color)',
           display: 'flex',
@@ -134,13 +134,13 @@ const AdminLayout: React.FC = () => {
           justifyContent: 'space-between',
           padding: '0 2rem'
         }}>
-          
+
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '300px' }}>
             <div style={{ position: 'relative', width: '100%' }}>
               <span className="material-symbols-outlined" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#666', fontSize: '1.2rem' }}>search</span>
-              <input 
-                type="text" 
-                placeholder="Search orders, riders..." 
+              <input
+                type="text"
+                placeholder="Search orders, riders..."
                 value={searchQuery}
                 onChange={(e) => setSearchParams({ q: e.target.value })}
                 style={{
@@ -177,7 +177,7 @@ const AdminLayout: React.FC = () => {
         <div style={{ flex: 1, overflowY: 'auto', padding: '2rem' }} className="custom-scrollbar">
           <Outlet />
         </div>
-        
+
       </main>
     </div>
   );
@@ -185,8 +185,8 @@ const AdminLayout: React.FC = () => {
 
 // NavItem Component
 const NavItem = ({ to, icon, label, open, end = false }: { to: string, icon: string, label: string, open: boolean, end?: boolean }) => (
-  <NavLink 
-    to={to} 
+  <NavLink
+    to={to}
     end={end}
     style={({ isActive }) => ({
       display: 'flex',

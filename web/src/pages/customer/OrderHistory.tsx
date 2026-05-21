@@ -85,7 +85,7 @@ const OrderHistory: React.FC = () => {
 
   const leftContent = (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', marginTop: '0.8rem', color: '#fff' }}>Delivery History</h2>
+      <h2 style={{ fontSize: '1.25rem', fontWeight: 600, marginBottom: '1.5rem', marginTop: '0.8rem', color: 'var(--text-main)' }}>Delivery History</h2>
 
       {loading ? (
         <div className="text-center text-muted" style={{ padding: '2rem' }}>Loading history...</div>
@@ -100,8 +100,8 @@ const OrderHistory: React.FC = () => {
               key={order.id} 
               onClick={() => handleOrderClick(order)}
               style={{ 
-                background: selectedOrder?.id === order.id ? '#3d1c36' : 'var(--bg-sidebar)', 
-                border: selectedOrder?.id === order.id ? '1px solid var(--primary)' : '1px solid #3d1c36', 
+                background: selectedOrder?.id === order.id ? 'var(--bg-darker)' : 'var(--bg-sidebar)', 
+                border: selectedOrder?.id === order.id ? '1px solid var(--primary)' : '1px solid var(--border-color)', 
                 borderRadius: '1rem', 
                 padding: '1.25rem',
                 cursor: 'pointer',
@@ -111,7 +111,7 @@ const OrderHistory: React.FC = () => {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <span className={`badge badge-${order.status.toLowerCase()}`} style={{ fontSize: '0.65rem' }}>{order.status}</span>
-                <span style={{ fontWeight: 600, color: '#fff', fontSize: '0.875rem' }}>GH₵{order.price.toFixed(2)}</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.875rem' }}>GH₵{order.price.toFixed(2)}</span>
               </div>
 
               {/* Prominent PIN Display on Unexpanded Card */}
@@ -124,22 +124,22 @@ const OrderHistory: React.FC = () => {
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff', marginTop: '4px', flexShrink: 0 }}></div>
+                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--text-main)', marginTop: '4px', flexShrink: 0 }}></div>
                   <div>
                     <p className="text-muted" style={{ fontSize: '0.65rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>From</p>
-                    <p style={{ fontWeight: 500, fontSize: '0.8rem', color: '#fff', lineHeight: 1.4 }}>{order.pickupLocation}</p>
+                    <p style={{ fontWeight: 500, fontSize: '0.8rem', color: 'var(--text-main)', lineHeight: 1.4 }}>{order.pickupLocation}</p>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', marginTop: '4px', flexShrink: 0 }}></div>
                   <div>
                     <p className="text-muted" style={{ fontSize: '0.65rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>To</p>
-                    <p style={{ fontWeight: 500, fontSize: '0.8rem', color: '#fff', lineHeight: 1.4 }}>{order.dropoffLocation}</p>
+                    <p style={{ fontWeight: 500, fontSize: '0.8rem', color: 'var(--text-main)', lineHeight: 1.4 }}>{order.dropoffLocation}</p>
                   </div>
                 </div>
               </div>
 
-              <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #3d1c36', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>person</span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{order.receiverName}</span>
@@ -150,23 +150,23 @@ const OrderHistory: React.FC = () => {
               </div>
 
               {selectedOrder?.id === order.id && (
-                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #3d1c36', animation: 'fade-in-top 0.3s ease' }}>
+                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)', animation: 'fade-in-top 0.3s ease' }}>
                   <div style={{ marginBottom: '1rem' }}>
                     <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Package Description</p>
-                    <p style={{ fontSize: '0.85rem', color: '#fff', lineHeight: 1.5 }}>{order.packageDescription || 'No description provided.'}</p>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.5 }}>{order.packageDescription || 'No description provided.'}</p>
                   </div>
                   
                   <div style={{ marginBottom: '1rem' }}>
                     <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Receiver Contact</p>
-                    <p style={{ fontSize: '0.85rem', color: '#fff' }}>{order.receiverContact}</p>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-main)' }}>{order.receiverContact}</p>
                   </div>
                   
                   {/* PIN Display in Expanded view was here, moved to unexpanded card to ensure it's always visible */}
-                  <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.75rem', borderRadius: '0.5rem', marginBottom: '1rem' }}>
+                  <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', padding: '0.75rem', borderRadius: '0.5rem', marginBottom: '1rem' }}>
                     <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Delivery Assignment</p>
                     {order.rider ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                        <p style={{ fontSize: '0.85rem', color: '#fff' }}><strong>{order.rider.name}</strong> has been assigned to this delivery.</p>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--text-main)' }}><strong>{order.rider.name}</strong> has been assigned to this delivery.</p>
                         <p style={{ fontSize: '0.85rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                           <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>call</span> 
                           <a href={`tel:${order.rider.phone}`} style={{ color: 'inherit', textDecoration: 'none' }}>{order.rider.phone}</a>
@@ -179,7 +179,7 @@ const OrderHistory: React.FC = () => {
                   
                   <div>
                     <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Current Status</p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#fff' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--text-main)' }}>
                       <span className="material-symbols-outlined" style={{ color: 'var(--primary)', fontSize: '1.2rem' }}>
                         {order.status === 'PENDING' ? 'schedule' : 
                          order.status === 'ASSIGNED' ? 'directions_bike' : 
@@ -270,7 +270,6 @@ const OrderHistory: React.FC = () => {
           background: '#ffffff',
           padding: '1rem 2rem',
           borderRadius: '2rem',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
           display: 'flex',
           gap: '2rem',
           alignItems: 'center',
@@ -309,11 +308,10 @@ const OrderHistory: React.FC = () => {
           left: '50%',
           transform: 'translateX(-50%)',
           background: 'var(--bg-sidebar)',
-          color: '#fff',
+          color: 'var(--text-main)',
           padding: '0.8rem 1.5rem',
           borderRadius: '2rem',
           border: '1px solid var(--primary)',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.5)',
           zIndex: 100,
           display: 'none',
           alignItems: 'center',

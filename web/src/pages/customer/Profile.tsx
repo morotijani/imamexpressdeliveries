@@ -195,7 +195,7 @@ const Profile: React.FC = () => {
         marginBottom: '1.5rem', 
         fontSize: '1.25rem', 
         fontWeight: 600, 
-        color: '#fff',
+        color: 'var(--text-main)',
         borderBottom: '1px solid rgba(160, 32, 240, 0.1)'
       }}>
         My Profile
@@ -225,7 +225,7 @@ const Profile: React.FC = () => {
               fontSize: '2.5rem',
               color: '#fff',
               overflow: 'hidden',
-              border: '4px solid #1a1625'
+              border: '4px solid var(--bg-sidebar)'
             }}>
               {!formData.profileImage && (formData.name.charAt(0).toUpperCase() || 'U')}
             </div>
@@ -236,9 +236,9 @@ const Profile: React.FC = () => {
                 position: 'absolute', 
                 bottom: '0', 
                 right: 'calc(50% - 50px)', 
-                background: '#fff', 
-                color: '#111', 
-                border: 'none', 
+                background: 'var(--bg-surface)', 
+                color: 'var(--text-main)', 
+                border: '1px solid var(--border-color)', 
                 borderRadius: '50%', 
                 width: '32px', 
                 height: '32px', 
@@ -246,7 +246,6 @@ const Profile: React.FC = () => {
                 alignItems: 'center', 
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
                 zIndex: 2
               }}
             >
@@ -256,7 +255,7 @@ const Profile: React.FC = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="input-group">
-              <label className="input-label" style={{ color: '#fff' }}>Full Name</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Full Name</label>
               <input
                 type="text"
                 className="input-field"
@@ -269,7 +268,7 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label" style={{ color: '#fff' }}>Email Address</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Email Address</label>
               <input
                 type="email"
                 className="input-field"
@@ -282,7 +281,7 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label" style={{ color: '#fff' }}>Phone Number</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Phone Number</label>
               <input
                 type="text"
                 className="input-field"
@@ -294,7 +293,7 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label" style={{ color: '#fff' }}>Home Address</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Home Address</label>
               {isLoaded ? (
                 <Autocomplete onLoad={(autoC) => homeAutocompleteRef.current = autoC} onPlaceChanged={onHomePlaceChanged}>
                   <input
@@ -321,7 +320,7 @@ const Profile: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label" style={{ color: '#fff' }}>Work Address</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Work Address</label>
               {isLoaded ? (
                 <Autocomplete onLoad={(autoC) => workAutocompleteRef.current = autoC} onPlaceChanged={onWorkPlaceChanged}>
                   <input
@@ -358,15 +357,15 @@ const Profile: React.FC = () => {
           </form>
 
           {/* Account Details Section */}
-          <div style={{ marginTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
+          <div style={{ marginTop: '3rem', borderTop: '1px solid var(--border-color)', paddingTop: '2rem' }}>
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-              <div style={{ flex: 1, background: '#3d1c36', padding: '1rem', borderRadius: '1rem' }}>
+              <div style={{ flex: 1, background: 'var(--bg-darker)', padding: '1rem', borderRadius: '1rem' }}>
                 <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>Account Status</p>
-                <p style={{ fontWeight: 600, color: '#A020F0', fontSize: '0.875rem' }}>Verified & Active</p>
+                <p style={{ fontWeight: 600, color: 'var(--primary)', fontSize: '0.875rem' }}>Verified & Active</p>
               </div>
-              <div style={{ flex: 1, background: '#3d1c36', padding: '1rem', borderRadius: '1rem' }}>
+              <div style={{ flex: 1, background: 'var(--bg-darker)', padding: '1rem', borderRadius: '1rem' }}>
                 <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>Member Since</p>
-                <p style={{ fontWeight: 600, color: '#fff', fontSize: '0.875rem' }}>{new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+                <p style={{ fontWeight: 600, color: 'var(--text-main)', fontSize: '0.875rem' }}>{new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
               </div>
             </div>
           </div>
@@ -388,7 +387,6 @@ const Profile: React.FC = () => {
           padding: '0.75rem 1.5rem',
           borderRadius: '2rem',
           zIndex: 10,
-          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
           fontWeight: 600,
           display: 'flex',
           alignItems: 'center',

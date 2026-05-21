@@ -28,8 +28,8 @@ const Login: React.FC = () => {
           geocoder.geocode({ location: userLocation }, (results, status) => {
             if (status === 'OK' && results && results[0]) {
               const addressComponents = results[0].address_components;
-              const city = addressComponents.find(c => c.types.includes('locality'))?.long_name || 
-                           addressComponents.find(c => c.types.includes('administrative_area_level_1'))?.long_name;
+              const city = addressComponents.find(c => c.types.includes('locality'))?.long_name ||
+                addressComponents.find(c => c.types.includes('administrative_area_level_1'))?.long_name;
               setLocationName(city || 'Unknown Location');
             }
           });
@@ -49,15 +49,15 @@ const Login: React.FC = () => {
       const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
       login(response.data.user, response.data.token);
       toast.success(`Welcome back, ${response.data.user.name}!`);
-      
+
       if (response.data.user.role === 'ADMIN') navigate('/admin');
       else if (response.data.user.role === 'RIDER') navigate('/rider');
       else navigate('/customer');
-      
+
     } catch (err: any) {
       const errorMessage = err.response?.data?.message || 'Failed to login. Please check your credentials.';
       toast.error(errorMessage);
-      
+
       if (err.response?.status === 403 && errorMessage.includes('verify your email')) {
         setTimeout(() => {
           navigate('/resend-verification', { state: { email } });
@@ -76,15 +76,15 @@ const Login: React.FC = () => {
         <h1 style={{ fontSize: '2.5rem', fontWeight: 500, margin: '0 0 0.5rem 0', color: 'var(--text-main)', letterSpacing: '-0.02em' }}>Sign in</h1>
         <p style={{ fontSize: '1rem', color: 'var(--text-main)', margin: 0 }}>Use your Imam Express Account</p>
       </div>
-      
+
       {/* Right Column: Form */}
       <div style={{ flex: 1.2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-          
+
           <div className="google-input-group">
-            <input 
-              type="email" 
-              className="google-input" 
+            <input
+              type="email"
+              className="google-input"
               placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -92,11 +92,11 @@ const Login: React.FC = () => {
             />
             <label className="google-input-label">Email or phone</label>
           </div>
-          
+
           <div className="google-input-group" style={{ marginBottom: '1rem' }}>
-            <input 
-              type="password" 
-              className="google-input" 
+            <input
+              type="password"
+              className="google-input"
               placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -110,18 +110,18 @@ const Login: React.FC = () => {
           </div>
 
           <p style={{ fontSize: '0.85rem', color: 'var(--text-main)', lineHeight: 1.5, marginBottom: '2.5rem' }}>
-            Not your computer? Use a Private Window to sign in. <a href="#" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Learn more about using Guest mode</a>
+            New here? You can create an account by clicking the create account link below. <a href="#" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>Learn more about using Imam Express</a>
           </p>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Link to="/register" style={{ color: 'var(--primary)', fontWeight: 600, fontSize: '0.9rem', textDecoration: 'none' }}>Create account</Link>
-            <button type="submit" style={{ 
-              background: 'var(--primary)', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '2rem', 
-              padding: '0.6rem 1.5rem', 
-              fontWeight: 600, 
+            <button type="submit" style={{
+              background: 'var(--primary)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '2rem',
+              padding: '0.6rem 1.5rem',
+              fontWeight: 600,
               cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.7 : 1,
               fontFamily: 'inherit'

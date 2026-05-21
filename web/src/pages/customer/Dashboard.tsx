@@ -90,8 +90,7 @@ const Dashboard: React.FC = () => {
           justifyContent: 'center',
           fontSize: '1.25rem',
           color: '#fff',
-          overflow: 'hidden',
-          boxShadow: '0 4px 15px rgba(160, 32, 240, 0.2)'
+          overflow: 'hidden'
         }}>
           {!user?.profileImage && (user?.name?.charAt(0).toUpperCase() || 'U')}
         </div>
@@ -134,14 +133,14 @@ const Dashboard: React.FC = () => {
           </motion.div>
 
           {/* Quick Actions Card */}
-          <motion.div variants={itemVariants} style={{ background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)', borderRadius: '1.5rem', padding: '1.5rem', color: '#fff', position: 'relative', overflow: 'hidden', boxShadow: '0 10px 30px rgba(160, 32, 240, 0.25)', flexShrink: 0 }}>
+          <motion.div variants={itemVariants} style={{ background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)', borderRadius: '1.5rem', padding: '1.5rem', color: '#fff', position: 'relative', overflow: 'hidden', flexShrink: 0 }}>
             <div style={{ position: 'relative', zIndex: 2 }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>Express Delivery</h3>
               <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', margin: '0.5rem 0 1.25rem 0', maxWidth: '80%' }}>Send documents, packages, or food across town instantly.</p>
               <button 
                 onClick={() => navigate('/customer/create-order')}
                 className="btn" 
-                style={{ background: '#fff', color: 'var(--primary)', fontWeight: 700, borderRadius: '2rem', padding: '0.6rem 1.5rem', border: 'none', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}
+                style={{ background: '#fff', color: 'var(--primary)', fontWeight: 700, borderRadius: '2rem', padding: '0.6rem 1.5rem', border: 'none' }}
               >
                 Send Package Now
               </button>
@@ -167,7 +166,7 @@ const Dashboard: React.FC = () => {
                 }}
                 style={{ background: 'var(--bg-sidebar)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
               >
-                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.5rem', borderRadius: '50%', color: '#fff', display: 'flex' }}>
+                <div style={{ background: 'rgba(160, 32, 240, 0.1)', padding: '0.5rem', borderRadius: '50%', color: 'var(--primary)', display: 'flex' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>home</span>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
@@ -188,7 +187,7 @@ const Dashboard: React.FC = () => {
                 }}
                 style={{ background: 'var(--bg-sidebar)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
               >
-                <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.5rem', borderRadius: '50%', color: '#fff', display: 'flex' }}>
+                <div style={{ background: 'rgba(160, 32, 240, 0.1)', padding: '0.5rem', borderRadius: '50%', color: 'var(--primary)', display: 'flex' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>work</span>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
@@ -226,7 +225,7 @@ const Dashboard: React.FC = () => {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#fff', flexShrink: 0 }} />
+                        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--text-main)', flexShrink: 0 }} />
                         <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{order.pickupLocation}</p>
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>

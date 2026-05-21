@@ -109,7 +109,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 2px 5px rgba(239, 68, 68, 0.4)',
                     border: '2px solid #fff'
                   }}>
                     {unreadCount}
@@ -128,7 +127,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                   background: '#fff',
                   border: '1px solid #eee',
                   borderRadius: '1.25rem',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
                   zIndex: 1000,
                   display: 'flex',
                   flexDirection: 'column',

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useLoadScript, GoogleMap, Marker } from '@react-google-maps/api';
 
@@ -16,6 +18,7 @@ interface Order {
   status: string;
   price: number;
   createdAt: string;
+  updatedAt?: string;
   rider?: { name: string } | null;
 }
 
@@ -37,14 +40,27 @@ const simulatedRiders = [
   { lat: 5.5800, lng: -0.2000, id: 4 },
 ];
 
-const mapOptions = {
-  disableDefaultUI: true,
-  zoomControl: false,
-  styles: [{ elementType: "geometry", stylers: [{ color: "#2b1426" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#a78bfa" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#1e0e1a" }] }, { featureType: "road", elementType: "geometry", stylers: [{ color: "#3d1c36" }] }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#1e0e1a" }] }]
-};
+const darkMapStyles = [
+  { elementType: "geometry", stylers: [{ color: "#2b1426" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#a78bfa" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#1e0e1a" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#3d1c36" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#1e0e1a" }] }
+];
+
+const lightMapStyles = [
+  { elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#616161" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f5f5f5" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#e0e0e0" }] },
+  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }
+];
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const { token } = useAuth();
+  const { theme } = useTheme();
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -226,7 +242,11 @@ const Dashboard: React.FC = () => {
                   mapContainerStyle={{ width: '100%', height: '100%' }}
                   center={{ lat: 5.6037, lng: -0.1870 }}
                   zoom={12}
-                  options={mapOptions}
+                  options={{
+                    disableDefaultUI: true,
+                    zoomControl: false,
+                    styles: theme === 'light' ? lightMapStyles : darkMapStyles
+                  }}
                 >
                   {simulatedRiders.map(rider => (
                     <Marker 
@@ -242,7 +262,7 @@ const Dashboard: React.FC = () => {
                 <div style={{ width: '100%', height: '100%', background: 'var(--bg-darker)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>Loading map...</div>
               )}
               {/* Gradient Overlay so text remains readable */}
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(30, 14, 26, 0.8) 0%, rgba(30, 14, 26, 0.2) 100%)', pointerEvents: 'none' }}></div>
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: theme === 'light' ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 100%)' : 'linear-gradient(to bottom, rgba(30, 14, 26, 0.9) 0%, rgba(30, 14, 26, 0.2) 100%)', pointerEvents: 'none' }}></div>
             </div>
             <div style={{ position: 'relative', zIndex: 1, padding: '1.5rem', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', pointerEvents: 'none' }}>
               <h3 style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -297,14 +317,18 @@ const Dashboard: React.FC = () => {
                       )}
                     </p>
                     <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                      {new Date(order.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} today
+                      {new Date(order.updatedAt || order.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} today
                     </span>
                   </div>
                 </div>
               ))}
             </div>
 
-            <button style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', color: 'var(--text-main)', borderRadius: '0.5rem', cursor: 'pointer', marginTop: '1rem', transition: 'all 0.2s' }} className="nav-item-hover">
+            <button 
+              onClick={() => navigate('/admin/orders')}
+              style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', color: 'var(--text-main)', borderRadius: '0.5rem', cursor: 'pointer', marginTop: '1rem', transition: 'all 0.2s' }} 
+              className="nav-item-hover"
+            >
               View Full History
             </button>
           </div>

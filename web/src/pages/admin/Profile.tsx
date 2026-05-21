@@ -58,11 +58,11 @@ const AdminProfile: React.FC = () => {
       reader.onloadend = async () => {
         const base64 = reader.result as string;
         setFormData({ ...formData, profileImage: base64 });
-        
+
         setSaving(true);
         try {
-          const res = await axios.put('http://localhost:5000/api/user/profile', 
-            { ...formData, profileImage: base64 }, 
+          const res = await axios.put('http://localhost:5000/api/user/profile',
+            { ...formData, profileImage: base64 },
             { headers: { Authorization: `Bearer ${token}` } }
           );
           if (authUser) {
@@ -133,7 +133,7 @@ const AdminProfile: React.FC = () => {
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '2rem' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', marginBottom: '0.5rem' }}>Administrator Profile</h2>
+        <h2 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.5rem' }}>Administrator Profile</h2>
         <p style={{ color: 'var(--text-muted)' }}>Manage your personal account information and security</p>
       </div>
 
@@ -141,45 +141,45 @@ const AdminProfile: React.FC = () => {
         {/* Left Column: Avatar */}
         <div className="admin-glass-card" style={{ padding: '2rem', textAlign: 'center', height: 'fit-content' }}>
           <div style={{ position: 'relative', width: '150px', height: '150px', margin: '0 auto 1.5rem' }}>
-            <input 
-              type="file" 
-              ref={fileInputRef} 
-              style={{ display: 'none' }} 
-              accept="image/*" 
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              accept="image/*"
               onChange={handleFileChange}
             />
-            <div style={{ 
-              width: '100%', 
-              height: '100%', 
-              background: formData.profileImage ? `url(${formData.profileImage}) center/cover` : 'var(--primary)', 
-              borderRadius: '50%', 
-              display: 'flex', 
-              alignItems: 'center', 
+            <div style={{
+              width: '100%',
+              height: '100%',
+              background: formData.profileImage ? `url(${formData.profileImage}) center/cover` : 'var(--primary)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'center',
               fontSize: '3.5rem',
-              color: '#fff',
+              color: 'var(--text-main)',
               overflow: 'hidden',
               border: '4px solid rgba(160, 32, 240, 0.2)',
               boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
             }}>
               {!formData.profileImage && (formData.name.charAt(0).toUpperCase() || 'A')}
             </div>
-            <button 
+            <button
               type="button"
               onClick={handleFileClick}
               disabled={saving}
-              style={{ 
-                position: 'absolute', 
-                bottom: '5px', 
-                right: '5px', 
-                background: 'var(--secondary)', 
-                color: '#fff', 
-                border: 'none', 
-                borderRadius: '50%', 
-                width: '40px', 
-                height: '40px', 
-                display: 'flex', 
-                alignItems: 'center', 
+              style={{
+                position: 'absolute',
+                bottom: '5px',
+                right: '5px',
+                background: 'var(--secondary)',
+                color: 'var(--text-main)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
@@ -190,10 +190,10 @@ const AdminProfile: React.FC = () => {
               <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>photo_camera</span>
             </button>
           </div>
-          <h3 style={{ color: '#fff', margin: '0 0 0.5rem' }}>{formData.name}</h3>
+          <h3 style={{ color: 'var(--text-main)', margin: '0 0 0.5rem' }}>{formData.name}</h3>
           <span className="badge badge-pending" style={{ fontSize: '0.7rem' }}>SYSTEM ADMINISTRATOR</span>
-          
-          <div style={{ marginTop: '2rem', textAlign: 'left', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+
+          <div style={{ marginTop: '2rem', textAlign: 'left', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', color: 'var(--text-muted)' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>mail</span>
               <span style={{ fontSize: '0.85rem' }}>{formData.email}</span>
@@ -210,7 +210,7 @@ const AdminProfile: React.FC = () => {
           <form onSubmit={handleSubmit}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
               <div className="input-group">
-                <label className="input-label" style={{ color: '#fff' }}>Full Name</label>
+                <label className="input-label" style={{ color: 'var(--text-main)' }}>Full Name</label>
                 <input
                   type="text"
                   className="input-field"
@@ -221,7 +221,7 @@ const AdminProfile: React.FC = () => {
                 />
               </div>
               <div className="input-group">
-                <label className="input-label" style={{ color: '#fff' }}>Phone Number</label>
+                <label className="input-label" style={{ color: 'var(--text-main)' }}>Phone Number</label>
                 <input
                   type="text"
                   className="input-field"
@@ -233,7 +233,7 @@ const AdminProfile: React.FC = () => {
             </div>
 
             <div className="input-group" style={{ marginBottom: '2rem' }}>
-              <label className="input-label" style={{ color: '#fff' }}>Email Address</label>
+              <label className="input-label" style={{ color: 'var(--text-main)' }}>Email Address</label>
               <input
                 type="email"
                 className="input-field"
@@ -244,7 +244,7 @@ const AdminProfile: React.FC = () => {
               />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
               <button
                 type="submit"
                 className="btn btn-primary"
@@ -257,41 +257,41 @@ const AdminProfile: React.FC = () => {
           </form>
 
           {/* Change Password Form */}
-          <div style={{ marginTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2.5rem' }}>
-            <h3 style={{ fontSize: '1.2rem', color: '#fff', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ marginTop: '3rem', borderTop: '1px solid var(--border-color)', paddingTop: '2.5rem' }}>
+            <h3 style={{ fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>lock_reset</span>
               Change Password
             </h3>
-            
+
             <form onSubmit={handlePasswordChange}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', marginBottom: '1.5rem', maxWidth: '400px' }}>
                 <div className="input-group">
-                  <label className="input-label" style={{ color: '#fff', fontSize: '0.75rem' }}>Current Password</label>
+                  <label className="input-label" style={{ color: 'var(--text-main)', fontSize: '0.75rem' }}>Current Password</label>
                   <input
                     type="password"
                     className="input-field"
                     value={passwordData.currentPassword}
-                    onChange={e => setPasswordData({...passwordData, currentPassword: e.target.value})}
+                    onChange={e => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
                     required
                   />
                 </div>
                 <div className="input-group">
-                  <label className="input-label" style={{ color: '#fff', fontSize: '0.75rem' }}>New Password</label>
+                  <label className="input-label" style={{ color: 'var(--text-main)', fontSize: '0.75rem' }}>New Password</label>
                   <input
                     type="password"
                     className="input-field"
                     value={passwordData.newPassword}
-                    onChange={e => setPasswordData({...passwordData, newPassword: e.target.value})}
+                    onChange={e => setPasswordData({ ...passwordData, newPassword: e.target.value })}
                     required
                   />
                 </div>
                 <div className="input-group">
-                  <label className="input-label" style={{ color: '#fff', fontSize: '0.75rem' }}>Confirm New Password</label>
+                  <label className="input-label" style={{ color: 'var(--text-main)', fontSize: '0.75rem' }}>Confirm New Password</label>
                   <input
                     type="password"
                     className="input-field"
                     value={passwordData.confirmPassword}
-                    onChange={e => setPasswordData({...passwordData, confirmPassword: e.target.value})}
+                    onChange={e => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
                     required
                   />
                 </div>
@@ -315,7 +315,7 @@ const AdminProfile: React.FC = () => {
             <div style={{ display: 'flex', gap: '1rem' }}>
               <span className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>security</span>
               <div>
-                <h4 style={{ color: '#fff', margin: '0 0 0.5rem', fontSize: '0.95rem' }}>Account Security</h4>
+                <h4 style={{ color: 'var(--text-main)', margin: '0 0 0.5rem', fontSize: '0.95rem' }}>Account Security</h4>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0, lineHeight: '1.5' }}>
                   Your account is protected with high-level administrative encryption. To change your password or enable two-factor authentication, please contact the system owner.
                 </p>

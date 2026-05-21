@@ -69,12 +69,12 @@ const Settings: React.FC = () => {
     }
   };
 
-  if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}><div className="loader"></div></div>;
+  if (loading) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', minHeight: '50vh' }}><div className="loader"></div></div>;
 
   return (
     <div style={{ maxWidth: '800px' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', marginBottom: '0.2rem' }}>Settings</h2>
+        <h2 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.2rem' }}>Settings</h2>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Configure global system parameters and pricing models</p>
       </div>
 
@@ -83,11 +83,11 @@ const Settings: React.FC = () => {
         {/* Pricing Configuration Card */}
         <div className="admin-glass-card" style={{ padding: '2rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(160, 32, 240, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(160, 32, 240, 0.3)' }}>
+            <div style={{ width: '48px', height: '48px', flexShrink: 0, borderRadius: '12px', background: 'rgba(160, 32, 240, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(160, 32, 240, 0.3)' }}>
               <span className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>payments</span>
             </div>
             <div>
-              <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>Delivery Pricing Model</h3>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-main)', margin: 0 }}>Delivery Pricing Model</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0 }}>Adjust how delivery fees are calculated for customers</p>
             </div>
           </div>
@@ -137,7 +137,7 @@ const Settings: React.FC = () => {
               </div>
             </div>
 
-            <h4 style={{ fontSize: '1rem', color: '#fff', marginBottom: '1rem', marginTop: '0.5rem' }}>Package Type Multipliers</h4>
+            <h4 style={{ fontSize: '1rem', color: 'var(--text-main)', marginBottom: '1rem', marginTop: '0.5rem' }}>Package Type Multipliers</h4>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '2rem' }}>
               <div className="input-group">
                 <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Documents</label>
@@ -180,20 +180,20 @@ const Settings: React.FC = () => {
         {/* System Status Card */}
         <div className="admin-glass-card" style={{ padding: '2rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+            <div style={{ width: '48px', height: '48px', flexShrink: 0, borderRadius: '12px', background: 'rgba(16, 185, 129, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
               <span className="material-symbols-outlined" style={{ color: '#10b981' }}>analytics</span>
             </div>
             <div>
-              <h3 style={{ fontSize: '1.2rem', color: '#fff', margin: 0 }}>System Status</h3>
+              <h3 style={{ fontSize: '1.2rem', color: 'var(--text-main)', margin: 0 }}>System Status</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0 }}>Real-time health check of core components</p>
             </div>
           </div>
 
           <div style={{ display: 'grid', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'var(--bg-darker)', borderRadius: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--text-muted)' }}>database</span>
-                <span style={{ color: '#fff' }}>Database Engine</span>
+                <span style={{ color: 'var(--text-main)' }}>Database Engine</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: status?.dbStatus === 'online' ? '#10b981' : '#ef4444' }}></div>
@@ -203,10 +203,10 @@ const Settings: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'var(--bg-darker)', borderRadius: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--text-muted)' }}>mail</span>
-                <span style={{ color: '#fff' }}>Email Server (SMTP)</span>
+                <span style={{ color: 'var(--text-main)' }}>Email Server (SMTP)</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: status?.emailStatus === 'online' ? '#10b981' : '#ef4444' }}></div>
@@ -216,10 +216,10 @@ const Settings: React.FC = () => {
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: 'var(--bg-darker)', borderRadius: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--text-muted)' }}>wifi</span>
-                <span style={{ color: '#fff' }}>Internet Connectivity</span>
+                <span style={{ color: 'var(--text-main)' }}>Internet Connectivity</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: status?.internetStatus === 'online' ? '#10b981' : '#ef4444' }}></div>
@@ -234,7 +234,7 @@ const Settings: React.FC = () => {
         {/* Other Settings (Conceptual for now) */}
         <div className="admin-glass-card" style={{ padding: '2rem', opacity: 0.7 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-             <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(255, 255, 255, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+             <div style={{ width: '48px', height: '48px', flexShrink: 0, borderRadius: '12px', background: 'var(--border-color)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span className="material-symbols-outlined" style={{ color: 'var(--text-muted)' }}>notifications_active</span>
             </div>
             <div>

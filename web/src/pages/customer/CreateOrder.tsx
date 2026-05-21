@@ -286,10 +286,10 @@ const CreateOrder: React.FC = () => {
       case 1:
         return (
           <motion.div key="step1" variants={variants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem' }}>Where are we going?</h3>
+            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '1.5rem' }}>Where are we going?</h3>
             <div style={{ position: 'relative', paddingLeft: '1.5rem', marginBottom: '1rem' }}>
               <div style={{ position: 'absolute', left: '0', top: '24px', bottom: '30px', borderLeft: '2px dashed rgba(160, 32, 240, 0.3)' }}></div>
-              <div style={{ position: 'absolute', left: '-4px', top: '24px', width: '10px', height: '10px', background: '#fff', borderRadius: '50%' }}></div>
+              <div style={{ position: 'absolute', left: '-4px', top: '24px', width: '10px', height: '10px', background: 'var(--text-main)', borderRadius: '50%' }}></div>
               <div style={{ position: 'absolute', left: '-4px', bottom: '30px', width: '10px', height: '10px', background: 'var(--primary)', borderRadius: '50%' }}></div>
 
               <div style={{ marginBottom: '1.5rem' }}>
@@ -333,7 +333,7 @@ const CreateOrder: React.FC = () => {
       case 2:
         return (
           <motion.div key="step2" variants={variants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem' }}>Who is receiving it?</h3>
+            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '1.5rem' }}>Who is receiving it?</h3>
             <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
               <div style={{ flex: 1 }}>
                 <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>Receiver's Name</label>
@@ -351,7 +351,7 @@ const CreateOrder: React.FC = () => {
       case 3:
         return (
           <motion.div key="step3" variants={variants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem' }}>What's in the package?</h3>
+            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '1.5rem' }}>What's in the package?</h3>
             <div style={{ marginBottom: '1.5rem' }}>
               <label className="input-label" style={{ fontSize: '0.75rem', textTransform: 'uppercase' }}>Package Description</label>
               <textarea
@@ -366,7 +366,7 @@ const CreateOrder: React.FC = () => {
               {errors.packageDescription && <p style={{ color: 'var(--danger)', fontSize: '0.7rem', marginTop: '0.4rem' }}>{errors.packageDescription}</p>}
             </div>
             <div style={{ marginBottom: '1.5rem' }}>
-              <label className="input-label" style={{ fontSize: '0.875rem', marginBottom: '1rem', color: '#fff' }}>Choose Package Type</label>
+              <label className="input-label" style={{ fontSize: '0.875rem', marginBottom: '1rem', color: 'var(--text-main)' }}>Choose Package Type</label>
               <div style={{ display: 'flex', gap: '1rem', overflowX: 'auto', paddingBottom: '1rem', scrollbarWidth: 'none' }}>
                 {packageTypes.map(pkg => (
                   <div
@@ -376,8 +376,8 @@ const CreateOrder: React.FC = () => {
                       flex: '0 0 auto',
                       width: '100px',
                       height: '110px',
-                      background: formData.packageType === pkg.id ? '#3d1c36' : 'var(--bg-sidebar)',
-                      border: formData.packageType === pkg.id ? '2px solid var(--primary)' : '1px solid rgba(160, 32, 240, 0.1)',
+                      background: formData.packageType === pkg.id ? 'var(--bg-darker)' : 'var(--bg-sidebar)',
+                      border: formData.packageType === pkg.id ? '2px solid var(--primary)' : '1px solid var(--border-color)',
                       borderRadius: '1.25rem',
                       display: 'flex',
                       flexDirection: 'column',
@@ -388,7 +388,7 @@ const CreateOrder: React.FC = () => {
                     }}
                   >
                     <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{pkg.icon}</div>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 500, color: formData.packageType === pkg.id ? '#fff' : 'var(--text-muted)' }}>{pkg.name}</div>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 500, color: formData.packageType === pkg.id ? 'var(--text-main)' : 'var(--text-muted)' }}>{pkg.name}</div>
                   </div>
                 ))}
               </div>
@@ -399,21 +399,21 @@ const CreateOrder: React.FC = () => {
       case 4:
         return (
           <motion.div key="step4" variants={variants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3 }}>
-            <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '1.5rem' }}>Review & Confirm</h3>
-            <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '1rem', padding: '1.5rem', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '1.5rem' }}>Review & Confirm</h3>
+            <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1.5rem', marginBottom: '1.5rem' }}>
               <div style={{ marginBottom: '1rem' }}>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Route</span>
-                <p style={{ fontSize: '0.9rem', color: '#fff', margin: '0.25rem 0' }}><span style={{ color: '#fff' }}>From:</span> {formData.pickupLocation}</p>
-                <p style={{ fontSize: '0.9rem', color: '#fff', margin: '0' }}><span style={{ color: 'var(--primary)' }}>To:</span> {formData.dropoffLocation}</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', margin: '0.25rem 0' }}><span style={{ color: 'var(--text-main)' }}>From:</span> {formData.pickupLocation}</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', margin: '0' }}><span style={{ color: 'var(--primary)' }}>To:</span> {formData.dropoffLocation}</p>
               </div>
-              <div style={{ display: 'flex', gap: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '1rem' }}>
+              <div style={{ display: 'flex', gap: '2rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Receiver</span>
-                  <p style={{ fontSize: '0.9rem', color: '#fff', margin: '0' }}>{formData.receiverName}</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', margin: '0' }}>{formData.receiverName}</p>
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Package</span>
-                  <p style={{ fontSize: '0.9rem', color: '#fff', margin: '0' }}>{packageTypes.find(p => p.id === formData.packageType)?.name}</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-main)', margin: '0' }}>{packageTypes.find(p => p.id === formData.packageType)?.name}</p>
                 </div>
               </div>
             </div>
@@ -422,7 +422,7 @@ const CreateOrder: React.FC = () => {
               <div style={{ background: 'rgba(160, 32, 240, 0.1)', border: '1px solid rgba(160, 32, 240, 0.3)', borderRadius: '1rem', padding: '1rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Total Price</p>
-                  <h3 style={{ margin: 0, fontSize: '1.5rem', color: '#fff' }}>GH₵{priceEstimate.toFixed(2)}</h3>
+                  <h3 style={{ margin: 0, fontSize: '1.5rem', color: 'var(--text-main)' }}>GH₵{priceEstimate.toFixed(2)}</h3>
                 </div>
                 {priceMultiplier && priceMultiplier > 1.0 && (
                   <span style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444', padding: '4px 8px', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 700 }}>
@@ -441,10 +441,10 @@ const CreateOrder: React.FC = () => {
   const leftContent = (
     <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', marginTop: '5px' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff', margin: 0 }}>Create Order</h2>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-main)', margin: 0 }}>Create Order</h2>
         <div style={{ display: 'flex', gap: '0.25rem' }}>
           {[1, 2, 3, 4].map(s => (
-            <div key={s} style={{ width: '8px', height: '8px', borderRadius: '50%', background: s === step ? 'var(--primary)' : 'rgba(255,255,255,0.1)' }} />
+            <div key={s} style={{ width: '8px', height: '8px', borderRadius: '50%', background: s === step ? 'var(--primary)' : 'var(--border-color)' }} />
           ))}
         </div>
       </div>
@@ -541,7 +541,6 @@ const CreateOrder: React.FC = () => {
           background: '#fff',
           padding: '1rem 2rem',
           borderRadius: '2rem',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
           display: 'flex',
           gap: '2rem',
           alignItems: 'center',

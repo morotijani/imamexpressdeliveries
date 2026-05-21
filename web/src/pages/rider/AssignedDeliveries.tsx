@@ -211,9 +211,9 @@ const AssignedDeliveries: React.FC = () => {
                         <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-color)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
                           <p style={{ fontSize: '0.65rem', color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>Customer Information</p>
                           <p style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.2rem' }}>{order.customer.name}</p>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0 }}>{order.customer.email}</p>
-                            <a href={`tel:${order.customer.phone}`} style={{ fontSize: '0.75rem', color: 'var(--primary-light)', fontWeight: 600, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0, wordBreak: 'break-all' }}>{order.customer.email}</p>
+                            <a href={`tel:${order.customer.phone}`} style={{ fontSize: '0.75rem', color: 'var(--primary-light)', fontWeight: 600, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.2rem', whiteSpace: 'nowrap' }}>
                               <span className="material-symbols-outlined" style={{ fontSize: '0.9rem' }}>call</span>
                               {order.customer.phone || 'N/A'}
                             </a>
@@ -224,9 +224,9 @@ const AssignedDeliveries: React.FC = () => {
                       {/* Receiver Contact */}
                       <div style={{ background: 'var(--bg-base)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
                         <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Receiver (Destination)</p>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <p style={{ fontWeight: 500, fontSize: '0.9rem' }}>{order.receiverName}</p>
-                          <a href={`tel:${order.receiverContact}`} style={{ color: 'var(--primary-light)', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <p style={{ fontWeight: 500, fontSize: '0.9rem', margin: 0 }}>{order.receiverName}</p>
+                          <a href={`tel:${order.receiverContact}`} style={{ color: 'var(--primary-light)', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.25rem', whiteSpace: 'nowrap' }}>
                             <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>call</span>
                             {order.receiverContact}
                           </a>
