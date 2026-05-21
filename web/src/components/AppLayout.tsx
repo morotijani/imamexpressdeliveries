@@ -12,9 +12,9 @@ interface AppLayoutProps {
   mobileLayout?: 'split' | 'full-left' | 'full-right';
 }
 
-const AppLayout: React.FC<AppLayoutProps> = ({ 
-  leftContent, 
-  rightContent, 
+const AppLayout: React.FC<AppLayoutProps> = ({
+  leftContent,
+  rightContent,
   overlayMode = false,
   mobileLayout = 'split'
 }) => {
@@ -53,21 +53,21 @@ const AppLayout: React.FC<AppLayoutProps> = ({
           }
         }} style={{ cursor: 'pointer' }}>
           <img src={logo} alt="Logo" style={{ width: '44px', height: '44px', borderRadius: '8px', objectFit: 'cover' }} />
-          <h1 className="top-logo-text">
+          {/* <h1 className="top-logo-text">
             Imam Express
-          </h1>
+          </h1> */}
         </div>
-        
+
         <div className="top-header-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {isAuthenticated && user?.role === 'CUSTOMER' ? (
             <div style={{ position: 'relative' }} ref={dropdownRef}>
-              <button 
-                className="theme-toggle" 
+              <button
+                className="theme-toggle"
                 onClick={() => setShowNotifications(!showNotifications)}
-                style={{ 
-                  background: '#ffffff', 
-                  border: '1px solid #eee', 
-                  color: '#0a0612', 
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #eee',
+                  color: '#0a0612',
                   position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
@@ -127,16 +127,16 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                     <h3 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: '#0a0612' }}>Notifications</h3>
                     <div style={{ display: 'flex', gap: '0.75rem' }}>
                       {notifications.length > 0 && (
-                        <span 
-                          onClick={markAllAsRead} 
+                        <span
+                          onClick={markAllAsRead}
                           style={{ fontSize: '0.75rem', color: 'var(--primary)', cursor: 'pointer', fontWeight: 600 }}
                         >
                           Read All
                         </span>
                       )}
                       {notifications.length > 0 && (
-                        <span 
-                          onClick={clearNotifications} 
+                        <span
+                          onClick={clearNotifications}
                           style={{ fontSize: '0.75rem', color: '#64748b', cursor: 'pointer', fontWeight: 600 }}
                         >
                           Clear
@@ -167,7 +167,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                       </div>
                     ) : (
                       notifications.map(item => (
-                        <div 
+                        <div
                           key={item.id}
                           onClick={() => {
                             markAsRead(item.id);
@@ -188,21 +188,21 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                           className="notification-hover"
                         >
                           <div style={{
-                            background: item.status === 'ASSIGNED' ? 'rgba(160, 32, 240, 0.1)' : 
-                                        item.status === 'PICKED_UP' ? 'rgba(59, 130, 246, 0.1)' :
-                                        item.status === 'DELIVERED' ? 'rgba(74, 222, 128, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-                            color: item.status === 'ASSIGNED' ? 'var(--primary)' : 
-                                   item.status === 'PICKED_UP' ? '#3b82f6' :
-                                   item.status === 'DELIVERED' ? '#22c55e' : '#ef4444',
+                            background: item.status === 'ASSIGNED' ? 'rgba(160, 32, 240, 0.1)' :
+                              item.status === 'PICKED_UP' ? 'rgba(59, 130, 246, 0.1)' :
+                                item.status === 'DELIVERED' ? 'rgba(74, 222, 128, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                            color: item.status === 'ASSIGNED' ? 'var(--primary)' :
+                              item.status === 'PICKED_UP' ? '#3b82f6' :
+                                item.status === 'DELIVERED' ? '#22c55e' : '#ef4444',
                             padding: '0.5rem',
                             borderRadius: '0.75rem',
                             display: 'flex',
                             flexShrink: 0
                           }}>
                             <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>
-                              {item.status === 'ASSIGNED' ? 'pedal_bike' : 
-                               item.status === 'PICKED_UP' ? 'inventory_2' :
-                               item.status === 'DELIVERED' ? 'check_circle' : 'cancel'}
+                              {item.status === 'ASSIGNED' ? 'pedal_bike' :
+                                item.status === 'PICKED_UP' ? 'inventory_2' :
+                                  item.status === 'DELIVERED' ? 'check_circle' : 'cancel'}
                             </span>
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
@@ -228,12 +228,12 @@ const AppLayout: React.FC<AppLayoutProps> = ({
               <span className="material-symbols-outlined">dark_mode</span>
             </button>
           )}
-          
+
           {isAuthenticated && (
-            <div 
-              className="header-profile-pic" 
+            <div
+              className="header-profile-pic"
               onClick={() => navigate('/customer/profile')}
-              style={{ 
+              style={{
                 background: user?.profileImage ? `url(${user.profileImage.startsWith('data:') || user.profileImage.startsWith('http') ? user.profileImage : `http://localhost:5000${user.profileImage}`}) center/cover` : 'var(--primary)',
                 border: '2px solid #fff',
                 overflow: 'hidden'
@@ -247,21 +247,21 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 
       <div className={`app-shell ${isAuthPage ? 'auth-shell' : ''} ${overlayMode ? 'map-overlay-mode' : ''} mobile-layout-${mobileLayout}`}>
         <div className="app-sidebar">
-          
+
           <div className="app-sidebar-content">
             {leftContent}
-            
+
             {!isAuthenticated && !isAuthPage && (
               <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <button 
-                  className="btn btn-primary" 
+                <button
+                  className="btn btn-primary"
                   style={{ width: '100%', borderRadius: '2rem' }}
                   onClick={() => navigate('/login')}
                 >
                   Sign In
                 </button>
-                <button 
-                  className="btn btn-secondary" 
+                <button
+                  className="btn btn-secondary"
                   style={{ width: '100%', borderRadius: '2rem' }}
                   onClick={() => navigate('/register')}
                 >
