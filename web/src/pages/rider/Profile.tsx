@@ -27,8 +27,7 @@ const ProfileRider: React.FC = () => {
           color: '#fff', 
           fontWeight: 800, 
           fontSize: '2.5rem',
-          margin: '0 auto 1rem auto',
-          boxShadow: '0 10px 25px rgba(160, 32, 240, 0.4)'
+          margin: '0 auto 1rem auto'
         }}>
           {user?.name?.charAt(0).toUpperCase()}
         </div>
@@ -36,7 +35,7 @@ const ProfileRider: React.FC = () => {
         <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>Active Rider</p>
       </div>
 
-      <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '1.5rem', border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden', marginBottom: '2rem' }}>
+      <div style={{ background: 'var(--bg-surface)', borderRadius: '1.5rem', border: '1px solid var(--border-color)', overflow: 'hidden', marginBottom: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <span className="material-symbols-outlined" style={{ color: 'var(--primary-light)' }}>email</span>
           <div>

@@ -96,7 +96,7 @@ const Dashboard: React.FC = () => {
           {!user?.profileImage && (user?.name?.charAt(0).toUpperCase() || 'U')}
         </div>
         <div>
-          <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#fff', margin: 0 }}>Hello, {user?.name || 'Customer'}!</h2>
+          <h2 style={{ fontSize: '1.125rem', fontWeight: 600, color: 'var(--text-main)', margin: 0 }}>Hello, {user?.name || 'Customer'}!</h2>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '0.2rem 0 0 0' }}>Where are we delivering today?</p>
         </div>
       </div>
@@ -112,29 +112,29 @@ const Dashboard: React.FC = () => {
         >
           {/* Quick Stats Grid */}
           <motion.div variants={itemVariants} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', flexShrink: 0 }}>
-            <div style={{ background: '#3d1c36', padding: '1rem 1.25rem', borderRadius: '1.25rem', border: '1px solid rgba(160, 32, 240, 0.1)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface)', padding: '1rem 1.25rem', borderRadius: '1.25rem', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ background: 'rgba(160,32,240,0.15)', color: 'var(--primary)', padding: '0.5rem', borderRadius: '0.75rem', display: 'flex' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>pedal_bike</span>
               </div>
               <div>
                 <p style={{ margin: 0, fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Active</p>
-                <h3 style={{ margin: '0.1rem 0 0 0', fontSize: '1.1rem', color: '#fff', fontWeight: 700 }}>{activeOrders.length}</h3>
+                <h3 style={{ margin: '0.1rem 0 0 0', fontSize: '1.1rem', color: 'var(--text-main)', fontWeight: 700 }}>{activeOrders.length}</h3>
               </div>
             </div>
 
-            <div style={{ background: '#3d1c36', padding: '1rem 1.25rem', borderRadius: '1.25rem', border: '1px solid rgba(160, 32, 240, 0.1)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ background: 'var(--bg-surface)', padding: '1rem 1.25rem', borderRadius: '1.25rem', border: '1px solid var(--border-color)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', padding: '0.5rem', borderRadius: '0.75rem', display: 'flex' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '1.5rem' }}>check_circle</span>
               </div>
               <div>
                 <p style={{ margin: 0, fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Completed</p>
-                <h3 style={{ margin: '0.1rem 0 0 0', fontSize: '1.1rem', color: '#fff', fontWeight: 700 }}>{completedOrders.length}</h3>
+                <h3 style={{ margin: '0.1rem 0 0 0', fontSize: '1.1rem', color: 'var(--text-main)', fontWeight: 700 }}>{completedOrders.length}</h3>
               </div>
             </div>
           </motion.div>
 
           {/* Quick Actions Card */}
-          <motion.div variants={itemVariants} style={{ background: 'linear-gradient(135deg, #A020F0 0%, #5b21b6 100%)', borderRadius: '1.5rem', padding: '1.5rem', color: '#fff', position: 'relative', overflow: 'hidden', boxShadow: '0 10px 30px rgba(160, 32, 240, 0.25)', flexShrink: 0 }}>
+          <motion.div variants={itemVariants} style={{ background: 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)', borderRadius: '1.5rem', padding: '1.5rem', color: '#fff', position: 'relative', overflow: 'hidden', boxShadow: '0 10px 30px rgba(160, 32, 240, 0.25)', flexShrink: 0 }}>
             <div style={{ position: 'relative', zIndex: 2 }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>Express Delivery</h3>
               <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', margin: '0.5rem 0 1.25rem 0', maxWidth: '80%' }}>Send documents, packages, or food across town instantly.</p>
@@ -165,13 +165,13 @@ const Dashboard: React.FC = () => {
                     navigate('/customer/profile');
                   }
                 }}
-                style={{ background: 'var(--bg-sidebar)', border: '1px solid rgba(255,255,255,0.02)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                style={{ background: 'var(--bg-sidebar)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
               >
                 <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.5rem', borderRadius: '50%', color: '#fff', display: 'flex' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>home</span>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h4 style={{ margin: 0, fontSize: '0.85rem', color: '#fff', fontWeight: 600 }}>Home Address</h4>
+                  <h4 style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)', fontWeight: 600 }}>Home Address</h4>
                   <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {profile.homeAddress || 'Set your Home address in Profile'}
                   </p>
@@ -186,13 +186,13 @@ const Dashboard: React.FC = () => {
                     navigate('/customer/profile');
                   }
                 }}
-                style={{ background: 'var(--bg-sidebar)', border: '1px solid rgba(255,255,255,0.02)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
+                style={{ background: 'var(--bg-sidebar)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1rem', display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer', transition: 'all 0.2s ease' }}
               >
                 <div style={{ background: 'rgba(255,255,255,0.03)', padding: '0.5rem', borderRadius: '50%', color: '#fff', display: 'flex' }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>work</span>
                 </div>
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <h4 style={{ margin: 0, fontSize: '0.85rem', color: '#fff', fontWeight: 600 }}>Work Address</h4>
+                  <h4 style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-main)', fontWeight: 600 }}>Work Address</h4>
                   <p style={{ margin: '0.1rem 0 0 0', fontSize: '0.75rem', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {profile.workAddress || 'Set your Work address in Profile'}
                   </p>
@@ -209,7 +209,7 @@ const Dashboard: React.FC = () => {
             </div>
             
             {orders.length === 0 ? (
-              <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '1rem', padding: '1.5rem', textAlign: 'center' }}>
+              <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '1rem', padding: '1.5rem', textAlign: 'center' }}>
                 <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--text-muted)' }}>No recent deliveries found.</p>
               </div>
             ) : (
@@ -218,11 +218,11 @@ const Dashboard: React.FC = () => {
                   <div 
                     key={order.id} 
                     onClick={() => navigate('/customer/history')}
-                    style={{ background: 'var(--bg-sidebar)', borderRadius: '1rem', padding: '1rem', cursor: 'pointer', border: '1px solid rgba(255,255,255,0.02)' }}
+                    style={{ background: 'var(--bg-sidebar)', borderRadius: '1rem', padding: '1rem', cursor: 'pointer', border: '1px solid var(--border-color)' }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
                       <span className={`badge badge-${order.status.toLowerCase()}`} style={{ fontSize: '0.6rem' }}>{order.status}</span>
-                      <span style={{ fontSize: '0.75rem', color: '#fff', fontWeight: 600 }}>GH₵{order.price.toFixed(2)}</span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', fontWeight: 600 }}>GH₵{order.price.toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -231,14 +231,14 @@ const Dashboard: React.FC = () => {
                       </div>
                       <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                         <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary)', flexShrink: 0 }} />
-                        <p style={{ margin: 0, fontSize: '0.75rem', color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{order.dropoffLocation}</p>
+                        <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-main)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{order.dropoffLocation}</p>
                       </div>
                     </div>
                     
                     {['ASSIGNED', 'PICKED_UP'].includes(order.status) && order.deliveryPin && (
                       <div style={{ marginTop: '1rem', background: 'rgba(160, 32, 240, 0.1)', border: '1px dashed rgba(160, 32, 240, 0.3)', padding: '0.75rem', borderRadius: '0.75rem', textAlign: 'center' }}>
                         <p style={{ margin: '0 0 0.25rem 0', fontSize: '0.65rem', color: 'var(--primary-light)', textTransform: 'uppercase' }}>Delivery PIN (Give to Rider)</p>
-                        <h4 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, letterSpacing: '0.2rem', color: '#fff' }}>{order.deliveryPin}</h4>
+                        <h4 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, letterSpacing: '0.2rem', color: 'var(--text-main)' }}>{order.deliveryPin}</h4>
                       </div>
                     )}
                   </div>
@@ -252,7 +252,7 @@ const Dashboard: React.FC = () => {
   );
 
   const rightContent = (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', padding: '2.5rem', color: '#fff', boxSizing: 'border-box', background: '#1e0e1a' }}>
+    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', padding: '2.5rem', color: 'var(--text-main)', boxSizing: 'border-box', background: 'var(--bg-darker)' }}>
       <div style={{ maxWidth: '800px', width: '100%', margin: 'auto' }}>
         <h1 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '0.5rem' }} className="text-gradient">Imam Express Delivery</h1>
         <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '3rem' }}>Fast, reliable, and premium logistics at the tip of your fingers.</p>
@@ -260,7 +260,7 @@ const Dashboard: React.FC = () => {
         {/* Dashboard Cards Grid for Desktop view */}
         <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: '2rem' }}>
           {/* Main welcome statistics card */}
-          <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '2rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '2rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <span className="material-symbols-outlined" style={{ fontSize: '2.5rem', color: 'var(--primary)' }}>monitoring</span>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '1rem 0 0.5rem 0' }}>Analytics Overview</h3>
@@ -280,7 +280,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Quick promotion widget */}
-          <div style={{ background: 'rgba(160, 32, 240, 0.05)', border: '1px solid rgba(160, 32, 240, 0.2)', borderRadius: '2rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', borderRadius: '2rem', padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <span className="material-symbols-outlined" style={{ fontSize: '2.5rem', color: '#ffb020' }}>workspace_premium</span>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: '1rem 0 0.5rem 0' }}>Premium Tier</h3>

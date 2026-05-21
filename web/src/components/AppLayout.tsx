@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
+import { useTheme } from '../context/ThemeContext';
 import BottomNav from './BottomNav';
 import logo from '../assets/logo.png';
 
@@ -19,6 +20,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
   mobileLayout = 'split'
 }) => {
   const { isAuthenticated, user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -59,7 +61,24 @@ const AppLayout: React.FC<AppLayoutProps> = ({
         </div>
 
         <div className="top-header-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          {isAuthenticated && user?.role === 'CUSTOMER' ? (
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              color: 'var(--text-main)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <span className="material-symbols-outlined">
+              {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+            </span>
+          </button>
+
+          {isAuthenticated && user?.role === 'CUSTOMER' && (
             <div style={{ position: 'relative' }} ref={dropdownRef}>
               <button
                 className="theme-toggle"
@@ -223,10 +242,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({
                 </div>
               )}
             </div>
-          ) : (
-            <button className="theme-toggle" style={{ background: '#ffffff', border: '1px solid #eee', color: '#0a0612' }}>
-              <span className="material-symbols-outlined">dark_mode</span>
-            </button>
           )}
 
           {isAuthenticated && (

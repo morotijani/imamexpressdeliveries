@@ -81,11 +81,11 @@ const Dashboard: React.FC = () => {
     <div style={{ paddingBottom: '2rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <div>
-          <h2 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', marginBottom: '0.2rem' }}>Logistics Overview</h2>
+          <h2 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-main)', marginBottom: '0.2rem' }}>Logistics Overview</h2>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Real-time monitoring and analytics</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+          <button style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-color)', color: 'var(--text-main)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
             <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>calendar_month</span>
             Last 7 Days
           </button>
@@ -105,7 +105,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Total Revenue</p>
-            <h3 style={{ fontSize: '2rem', color: '#fff', fontWeight: 800 }}>GH₵{metrics?.totalRevenue.toFixed(2)}</h3>
+            <h3 style={{ fontSize: '2rem', color: 'var(--text-main)', fontWeight: 800 }}>GH₵{metrics?.totalRevenue.toFixed(2)}</h3>
             <p style={{ fontSize: '0.75rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>trending_up</span> +14.5% from last week
             </p>
@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Completed Deliveries</p>
-            <h3 style={{ fontSize: '2rem', color: '#fff', fontWeight: 800 }}>{metrics?.totalDeliveries}</h3>
+            <h3 style={{ fontSize: '2rem', color: 'var(--text-main)', fontWeight: 800 }}>{metrics?.totalDeliveries}</h3>
             <p style={{ fontSize: '0.75rem', color: '#10b981', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>trending_up</span> +8.2% from last week
             </p>
@@ -131,7 +131,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Active Fleet</p>
-            <h3 style={{ fontSize: '2rem', color: '#fff', fontWeight: 800 }}>{metrics?.activeRiders} Riders</h3>
+            <h3 style={{ fontSize: '2rem', color: 'var(--text-main)', fontWeight: 800 }}>{metrics?.activeRiders} Riders</h3>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>check_circle</span> 100% online
             </p>
@@ -176,7 +176,7 @@ const Dashboard: React.FC = () => {
 
           {/* Recent Orders List */}
           <div className="admin-glass-card" style={{ padding: '0', overflow: 'hidden' }}>
-            <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '1.5rem 2rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--primary)' }}>receipt_long</span>
                 Recent Orders
@@ -194,10 +194,10 @@ const Dashboard: React.FC = () => {
               <tbody>
                 {orders.map(order => (
                   <tr key={order.id} className="data-table-row" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                    <td style={{ padding: '1.25rem 2rem', fontSize: '0.85rem', color: '#ccc' }}>#{order.id.slice(-6).toUpperCase()}</td>
-                    <td style={{ padding: '1.25rem 2rem', fontWeight: 500 }}>
+                    <td style={{ padding: '1.25rem 2rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>#{order.id.slice(-6).toUpperCase()}</td>
+                    <td style={{ padding: '1.25rem 2rem', fontWeight: 500, color: 'var(--text-main)' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem' }}>
+                        <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: 'var(--bg-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8rem' }}>
                           {order.receiverName.charAt(0)}
                         </div>
                         {order.receiverName}
@@ -206,7 +206,7 @@ const Dashboard: React.FC = () => {
                     <td style={{ padding: '1.25rem 2rem' }}>
                       <span className={`badge badge-${order.status.toLowerCase()}`}>{order.status}</span>
                     </td>
-                    <td style={{ padding: '1.25rem 2rem', fontWeight: 600, textAlign: 'right' }}>GH₵{order.price.toFixed(2)}</td>
+                    <td style={{ padding: '1.25rem 2rem', fontWeight: 600, textAlign: 'right', color: 'var(--text-main)' }}>GH₵{order.price.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -239,7 +239,7 @@ const Dashboard: React.FC = () => {
                   ))}
                 </GoogleMap>
               ) : (
-                <div style={{ width: '100%', height: '100%', background: '#1e0e1a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading map...</div>
+                <div style={{ width: '100%', height: '100%', background: 'var(--bg-darker)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>Loading map...</div>
               )}
               {/* Gradient Overlay so text remains readable */}
               <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(30, 14, 26, 0.8) 0%, rgba(30, 14, 26, 0.2) 100%)', pointerEvents: 'none' }}></div>
@@ -250,13 +250,13 @@ const Dashboard: React.FC = () => {
                 Live Fleet Status
               </h3>
               <div style={{ display: 'flex', gap: '1rem' }}>
-                <div style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', padding: '0.5rem 1rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', padding: '0.5rem 1rem', borderRadius: '1rem', border: '1px solid var(--border-color)' }}>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>Active Riders</span>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 700 }}>{metrics?.activeRiders}</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>{metrics?.activeRiders}</span>
                 </div>
-                <div style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(10px)', padding: '0.5rem 1rem', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ background: 'var(--bg-surface)', backdropFilter: 'blur(10px)', padding: '0.5rem 1rem', borderRadius: '1rem', border: '1px solid var(--border-color)' }}>
                   <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', display: 'block' }}>In Transit</span>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 700 }}>{orders.filter(o => o.status === 'PICKED_UP').length}</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>{orders.filter(o => o.status === 'PICKED_UP').length}</span>
                 </div>
               </div>
             </div>
@@ -286,8 +286,8 @@ const Dashboard: React.FC = () => {
                     border: '3px solid var(--bg-dark)',
                     zIndex: 2
                   }}></div>
-                  <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '0.75rem', border: '1px solid rgba(255,255,255,0.03)' }}>
-                    <p style={{ fontSize: '0.85rem', marginBottom: '0.2rem' }}>
+                  <div style={{ background: 'var(--bg-surface)', padding: '1rem', borderRadius: '0.75rem', border: '1px solid var(--border-color)' }}>
+                    <p style={{ fontSize: '0.85rem', marginBottom: '0.2rem', color: 'var(--text-main)' }}>
                       {order.status === 'DELIVERED' ? (
                         <>Order <strong>#{order.id.slice(-6).toUpperCase()}</strong> was delivered successfully.</>
                       ) : order.status === 'ASSIGNED' ? (
@@ -304,7 +304,7 @@ const Dashboard: React.FC = () => {
               ))}
             </div>
 
-            <button style={{ width: '100%', padding: '0.75rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', borderRadius: '0.5rem', cursor: 'pointer', marginTop: '1rem', transition: 'all 0.2s' }} className="nav-item-hover">
+            <button style={{ width: '100%', padding: '0.75rem', background: 'var(--bg-surface)', border: '1px solid var(--border-color)', color: 'var(--text-main)', borderRadius: '0.5rem', cursor: 'pointer', marginTop: '1rem', transition: 'all 0.2s' }} className="nav-item-hover">
               View Full History
             </button>
           </div>

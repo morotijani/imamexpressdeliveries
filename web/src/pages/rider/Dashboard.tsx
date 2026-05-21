@@ -88,8 +88,8 @@ const DashboardRider: React.FC = () => {
         </div>
       ) : (
         <div style={{ 
-          background: 'rgba(255,255,255,0.02)',
-          border: '1px dashed rgba(255,255,255,0.1)',
+          background: 'var(--bg-surface)',
+          border: '1px dashed var(--border-color)',
           borderRadius: '1.5rem',
           padding: '2rem',
           textAlign: 'center',

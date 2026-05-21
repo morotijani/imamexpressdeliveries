@@ -30,15 +30,15 @@ const EarningsRider: React.FC = () => {
       <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1.5rem' }}>Earnings & History</h2>
 
       <div style={{ 
-        background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.02) 100%)',
-        border: '1px solid rgba(34, 197, 94, 0.2)',
+        background: 'var(--bg-surface)',
+        border: '1px solid var(--border-color)',
         borderRadius: '1.5rem',
         padding: '2rem',
         textAlign: 'center',
         marginBottom: '2rem'
       }}>
         <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>Total Lifetime Earnings</p>
-        <h1 style={{ fontSize: '3rem', fontWeight: 900, color: '#fff', margin: 0 }}>GH₵{stats?.totalEarnings.toFixed(2)}</h1>
+        <h1 style={{ fontSize: '3rem', fontWeight: 900, color: 'var(--text-main)', margin: 0 }}>GH₵{stats?.totalEarnings.toFixed(2)}</h1>
         <p style={{ fontSize: '0.85rem', color: '#22c55e', marginTop: '0.5rem', fontWeight: 600 }}>From {stats?.totalCompleted} deliveries</p>
       </div>
 
@@ -47,8 +47,8 @@ const EarningsRider: React.FC = () => {
         <div style={{ display: 'grid', gap: '1rem' }}>
           {stats.recentCompleted.map((order: any) => (
             <div key={order.id} style={{ 
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.05)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-color)',
               borderRadius: '1rem',
               padding: '1rem',
               display: 'flex',

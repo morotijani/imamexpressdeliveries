@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import logo from '../../assets/logo.png';
 
 const AdminLayout: React.FC = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,8 +23,8 @@ const AdminLayout: React.FC = () => {
       {/* Sidebar */}
       <aside style={{
         width: sidebarOpen ? '280px' : '80px',
-        background: '#130c11', // Very dark slate/purple
-        borderRight: '1px solid rgba(255,255,255,0.05)',
+        background: 'var(--bg-sidebar)',
+        borderRight: '1px solid var(--border-color)',
         transition: 'width 0.3s ease',
         display: 'flex',
         flexDirection: 'column',
@@ -35,12 +37,12 @@ const AdminLayout: React.FC = () => {
           alignItems: 'center', 
           padding: sidebarOpen ? '0 1.5rem' : '0', 
           justifyContent: sidebarOpen ? 'space-between' : 'center',
-          borderBottom: '1px solid rgba(255,255,255,0.05)'
+          borderBottom: '1px solid var(--border-color)'
         }}>
           {sidebarOpen && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <img src={logo} alt="Logo" style={{ width: '36px', height: '36px', borderRadius: '8px', objectFit: 'cover' }} />
-              <span style={{ fontWeight: 800, fontSize: '1.2rem', color: '#fff', letterSpacing: '-0.5px' }}>Imam<span style={{ color: 'var(--primary)' }}>Express</span></span>
+              <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'var(--text-main)', letterSpacing: '-0.5px' }}>Imam<span style={{ color: 'var(--primary)' }}>Express</span></span>
             </div>
           )}
           <button 
@@ -95,7 +97,7 @@ const AdminLayout: React.FC = () => {
                 {!user?.profileImage && (user?.name?.charAt(0) || 'A')}
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{user?.name || 'Administrator'}</span>
+                <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{user?.name || 'Administrator'}</span>
                 <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Admin Role</span>
               </div>
             </div>
@@ -109,7 +111,7 @@ const AdminLayout: React.FC = () => {
               alignItems: 'center', 
               justifyContent: 'center', 
               fontWeight: 'bold',
-              color: '#fff',
+              color: 'var(--text-main)',
               fontSize: '0.8rem'
             }}>
               {!user?.profileImage && (user?.name?.charAt(0) || 'A')}
@@ -124,9 +126,9 @@ const AdminLayout: React.FC = () => {
         {/* Top Header */}
         <header style={{ 
           height: '70px', 
-          background: 'rgba(26, 21, 37, 0.8)', 
+          background: 'var(--nav-bg)', 
           backdropFilter: 'blur(10px)',
-          borderBottom: '1px solid rgba(255,255,255,0.05)',
+          borderBottom: '1px solid var(--border-color)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -143,11 +145,11 @@ const AdminLayout: React.FC = () => {
                 onChange={(e) => setSearchParams({ q: e.target.value })}
                 style={{
                   width: '100%',
-                  background: 'rgba(0,0,0,0.2)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'var(--bg-base)',
+                  border: '1px solid var(--border-color)',
                   borderRadius: '2rem',
                   padding: '0.5rem 1rem 0.5rem 2.5rem',
-                  color: '#fff',
+                  color: 'var(--text-main)',
                   fontSize: '0.85rem',
                   outline: 'none'
                 }}
@@ -156,6 +158,9 @@ const AdminLayout: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <button className="theme-toggle" onClick={toggleTheme} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-main)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span className="material-symbols-outlined">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
+            </button>
             <button style={{ background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', position: 'relative', display: 'flex' }}>
               <span className="material-symbols-outlined">notifications</span>
               <span style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: 'var(--accent)', borderRadius: '50%' }}></span>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../../assets/logo.png';
 
 const RiderLayout: React.FC = () => {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,8 +25,8 @@ const RiderLayout: React.FC = () => {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      background: '#16161c', // Premium dark background
-      color: '#fff',
+      background: 'var(--bg-base)', 
+      color: 'var(--text-main)',
       paddingBottom: '80px', // Space for bottom nav
       fontFamily: "'Outfit', sans-serif"
     }}>
@@ -33,9 +35,9 @@ const RiderLayout: React.FC = () => {
         position: 'sticky',
         top: 0,
         zIndex: 40,
-        background: 'rgba(22, 22, 28, 0.85)',
+        background: 'var(--nav-bg)',
         backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        borderBottom: '1px solid var(--border-color)',
         padding: '1rem 5%',
         display: 'flex',
         justifyContent: 'space-between',
@@ -47,8 +49,11 @@ const RiderLayout: React.FC = () => {
         </div>
         
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <button className="theme-toggle" onClick={toggleTheme} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', color: 'var(--text-main)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span className="material-symbols-outlined">{theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
+          </button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(34, 197, 94, 0.1)', padding: '0.35rem 0.75rem', borderRadius: '2rem', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e' }}></div>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#22c55e' }}></div>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#22c55e' }}>Online</span>
           </div>
         </div>
@@ -75,16 +80,15 @@ const RiderLayout: React.FC = () => {
         bottom: 0,
         left: 0,
         right: 0,
-        background: 'rgba(22, 22, 28, 0.95)',
+        background: 'var(--nav-bg)',
         backdropFilter: 'blur(15px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        borderTop: '1px solid var(--border-color)',
         zIndex: 50,
         padding: '0.5rem 0 1rem 0',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        alignItems: 'center',
-        boxShadow: '0 -5px 20px rgba(0,0,0,0.4)'
+        alignItems: 'center'
       }}>
         {navItems.map((item) => (
           <NavLink
@@ -125,8 +129,7 @@ const RiderLayout: React.FC = () => {
                       width: '30px',
                       height: '3px',
                       background: 'var(--primary)',
-                      borderRadius: '0 0 4px 4px',
-                      boxShadow: '0 2px 10px var(--primary)'
+                      borderRadius: '0 0 4px 4px'
                     }}
                   />
                 )}

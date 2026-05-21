@@ -126,12 +126,11 @@ const AssignedDeliveries: React.FC = () => {
         <div style={{ display: 'grid', gap: '1.25rem' }}>
           {orders.map((order) => (
             <div key={order.id} style={{ 
-              background: expandedOrderId === order.id ? '#1e0e1a' : 'rgba(255,255,255,0.02)',
-              border: expandedOrderId === order.id ? '1px solid var(--primary)' : '1px solid rgba(255,255,255,0.05)',
+              background: expandedOrderId === order.id ? 'var(--bg-darker)' : 'var(--bg-surface)',
+              border: expandedOrderId === order.id ? '1px solid var(--primary)' : '1px solid var(--border-color)',
               borderRadius: '1.25rem',
               display: 'flex', 
               flexDirection: 'column', 
-              boxShadow: expandedOrderId === order.id ? '0 10px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.2)',
               transition: 'all 0.3s ease',
               overflow: 'hidden'
             }}>
@@ -141,14 +140,14 @@ const AssignedDeliveries: React.FC = () => {
                 onClick={() => toggleExpand(order.id)}
                 style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', cursor: 'pointer' }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '1rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span className={`badge badge-${order.status.toLowerCase()}`}>{order.status}</span>
                     <span className="material-symbols-outlined" style={{ fontSize: '1.2rem', color: 'var(--text-muted)', transition: 'transform 0.3s ease', transform: expandedOrderId === order.id ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                       expand_more
                     </span>
                   </div>
-                  <span style={{ fontWeight: 800, color: '#fff', fontSize: '1.1rem' }}>GH₵{order.price.toFixed(2)}</span>
+                  <span style={{ fontWeight: 800, color: 'var(--text-main)', fontSize: '1.1rem' }}>GH₵{order.price.toFixed(2)}</span>
                 </div>
                 
                 <div style={{ display: 'grid', gap: '1rem' }}>
@@ -163,7 +162,7 @@ const AssignedDeliveries: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div style={{ borderLeft: '2px dashed rgba(255,255,255,0.1)', height: '15px', marginLeft: '11px', marginTop: '-0.5rem', marginBottom: '-0.5rem' }}></div>
+                  <div style={{ borderLeft: '2px dashed var(--border-color)', height: '15px', marginLeft: '11px', marginTop: '-0.5rem', marginBottom: '-0.5rem' }}></div>
 
                   {/* Dropoff */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
@@ -187,10 +186,10 @@ const AssignedDeliveries: React.FC = () => {
                     exit={{ height: 0, opacity: 0 }}
                     style={{ overflow: 'hidden' }}
                   >
-                    <div style={{ padding: '0 1.25rem 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', borderTop: '1px solid rgba(255,255,255,0.05)', marginTop: '-0.5rem', paddingTop: '1rem' }}>
+                    <div style={{ padding: '0 1.25rem 1.25rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', borderTop: '1px solid var(--border-color)', marginTop: '-0.5rem', paddingTop: '1rem' }}>
                       
                       {/* Timeline */}
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '0.75rem' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', background: 'var(--bg-base)', padding: '0.75rem', borderRadius: '0.75rem' }}>
                         <div>
                           <p style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Created On</p>
                           <p style={{ fontSize: '0.8rem', fontWeight: 600 }}>{new Date(order.createdAt).toLocaleString()}</p>
@@ -209,7 +208,7 @@ const AssignedDeliveries: React.FC = () => {
 
                       {/* Customer Info */}
                       {order.customer && (
-                        <div style={{ background: 'rgba(160, 32, 240, 0.05)', border: '1px solid rgba(160, 32, 240, 0.2)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
+                        <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-color)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
                           <p style={{ fontSize: '0.65rem', color: 'var(--primary-light)', textTransform: 'uppercase', marginBottom: '0.5rem', fontWeight: 700 }}>Customer Information</p>
                           <p style={{ fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.2rem' }}>{order.customer.name}</p>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -223,7 +222,7 @@ const AssignedDeliveries: React.FC = () => {
                       )}
 
                       {/* Receiver Contact */}
-                      <div style={{ background: 'rgba(0,0,0,0.2)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
+                      <div style={{ background: 'var(--bg-base)', padding: '0.75rem 1rem', borderRadius: '0.75rem' }}>
                         <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.2rem' }}>Receiver (Destination)</p>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <p style={{ fontWeight: 500, fontSize: '0.9rem' }}>{order.receiverName}</p>
@@ -253,7 +252,7 @@ const AssignedDeliveries: React.FC = () => {
                     <button 
                       className="btn" 
                       onClick={() => openMaps(order)}
-                      style={{ width: '100%', padding: '0.8rem', borderRadius: '1rem', fontSize: '0.9rem', fontWeight: 600, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
+                      style={{ width: '100%', padding: '0.8rem', borderRadius: '1rem', fontSize: '0.9rem', fontWeight: 600, background: 'var(--bg-base)', color: 'var(--text-main)', border: '1px solid var(--border-color)', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>map</span>
                       Track on Map
@@ -320,8 +319,8 @@ const AssignedDeliveries: React.FC = () => {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               style={{
-                background: '#16161c',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-color)',
                 borderRadius: '1.5rem',
                 padding: '2rem',
                 width: '100%',
@@ -331,7 +330,7 @@ const AssignedDeliveries: React.FC = () => {
             >
               <button 
                 onClick={() => setIsPinModalOpen(false)}
-                style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer' }}
+                style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'transparent', border: 'none', color: 'var(--text-main)', cursor: 'pointer' }}
               >
                 <span className="material-symbols-outlined">close</span>
               </button>
@@ -351,14 +350,15 @@ const AssignedDeliveries: React.FC = () => {
                   placeholder="Enter 4-digit PIN"
                   style={{
                     width: '100%',
-                    background: '#23232a',
-                    border: '2px solid rgba(255,255,255,0.1)',
+                    background: 'var(--bg-darker)',
+                    border: '2px solid var(--border-color)',
                     borderRadius: '1rem',
                     padding: '1rem',
-                    fontSize: '1.5rem',
-                    letterSpacing: '0.5rem',
+                    fontSize: '1.25rem',
+                    letterSpacing: pinInput.length > 0 ? '0.5rem' : 'normal',
                     textAlign: 'center',
-                    color: '#fff',
+                    color: 'var(--text-main)',
+                    fontFamily: 'Outfit, sans-serif',
                     outline: 'none',
                     marginBottom: '1rem',
                     fontWeight: 800
