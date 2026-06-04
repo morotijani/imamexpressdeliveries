@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo-transparent.png';
 
 const AdminLayout: React.FC = () => {
   const { user, logout } = useAuth();

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNotifications } from '../context/NotificationContext';
 import { useTheme } from '../context/ThemeContext';
 import BottomNav from './BottomNav';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-transparent.png';
 
 interface AppLayoutProps {
   leftContent: React.ReactNode;

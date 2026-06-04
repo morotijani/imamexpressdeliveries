@@ -5,7 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useLoadScript } from '@react-google-maps/api';
 import AuthLayout from '../../components/AuthLayout';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo-transparent.png';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');

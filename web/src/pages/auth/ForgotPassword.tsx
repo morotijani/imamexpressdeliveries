@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import AuthLayout from '../../components/AuthLayout';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo-transparent.png';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');

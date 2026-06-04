@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import logo from '../../assets/logo.png';
+import logo from '../assets/logo-transparent.png';
 
 const PublicFooter: React.FC = () => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
