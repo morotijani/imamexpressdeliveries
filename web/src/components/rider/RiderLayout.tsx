@@ -3,7 +3,7 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/logo-transparent.png';
+import logo from '../../assets/logo-transparent.png';
 
 const RiderLayout: React.FC = () => {
   const { user, logout } = useAuth();

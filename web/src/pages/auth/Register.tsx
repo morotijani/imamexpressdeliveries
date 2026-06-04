@@ -4,7 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useLoadScript, Autocomplete } from '@react-google-maps/api';
 import AuthLayout from '../../components/AuthLayout';
-import logo from '../assets/logo-transparent.png';
+import logo from '../../assets/logo-transparent.png';
 
 const Register: React.FC = () => {
   const [step, setStep] = useState(1);

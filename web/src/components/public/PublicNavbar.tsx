@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
-import logo from '../assets/logo-transparent.png';
+import logo from '../../assets/logo-transparent.png';
 
 const PublicNavbar: React.FC = () => {
   const navigate = useNavigate();

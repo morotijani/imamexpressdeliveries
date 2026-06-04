@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import AuthLayout from '../../components/AuthLayout';
-import logo from '../assets/logo-transparent.png';
+import logo from '../../assets/logo-transparent.png';
 
 const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState('');
